@@ -53,3 +53,13 @@ textarea,
   border: 1px solid red;
   background-color: pink;
 }
+
+.error-text {
+  text-align: center;
+  margin-top: .5rem;
+}
+
+.success-text {
+  text-align: center;
+  
+}

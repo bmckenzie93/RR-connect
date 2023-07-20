@@ -11,9 +11,9 @@ function App() {
     // opt in form
     // opt out form
     // pair each user from the database with a random person
-    // handle case of odd users ( a default person to get the odd person = Dan Freeman)
-    // send email to each person in database, telling them who they are paired with
-    // fire off twice a month automatically
+    // handle case of odd users ( a default person to get the odd person -> Dan Freeman)
+    // send email to each person in database, telling them who they are paired with -> node-mailer
+    // fire off twice a month automatically with cron job -> node-cron
 
     <>
       <h1 className='main-header'>RR Connect App</h1>
