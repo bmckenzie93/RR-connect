@@ -7,6 +7,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
+    // create an rr firebase account for the prod backend
     // opt in form
     // opt out form
     // pair each user from the database with a random person
