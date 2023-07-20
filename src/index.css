@@ -32,14 +32,38 @@ p {
   margin-bottom: 4rem;
 }
 
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 2rem;
+}
+.form-row .input-group {
+  width: 100%;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
 }
 
-label {
+.label {
   margin-bottom: .5rem;
+}
+.radio-badge {
+  background-color: #fff;
+  margin-right: 1rem;
+  border-radius: 200px;
+  padding: 3px 6px;
+}
+
+.radio-group {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.radio-group label {
+  margin-right: 1rem;
 }
 
 input,
@@ -61,5 +85,5 @@ textarea,
 
 .success-text {
   text-align: center;
-  
+
 }

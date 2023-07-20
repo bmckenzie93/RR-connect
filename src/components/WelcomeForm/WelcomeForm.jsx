@@ -117,7 +117,6 @@ const WelcomeForm = () => {
     enteredSecretIsValid 
   ) { formIsValid = true }
 
-
   const handleSubmitNewUser = async (e) => {
     e.preventDefault()
 
@@ -177,6 +176,56 @@ const WelcomeForm = () => {
     setShowSuccess(true)
   }
 
+  const handleRemoveUser = async (e) => {
+    e.preventDefault()
+
+    if(!enteredEmailIsValid) return 
+
+    const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
+
+    if(!userExists) {
+      alert('That email already does not exist in our system')
+      handleEmailReset()
+      emailRef.current.focus()
+      return
+    } 
+
+    try {
+      const response = await fetch(DB_URL)
+      const users = await response.json()
+
+      if (!response.ok) {
+        throw new Error('Sorry, something went wrong..')
+      }
+
+      let userKeyToDelete;
+      for(const key in users) {
+        if(users[key].email === enteredEmail.trim().toLowerCase()) {
+          userKeyToDelete = key
+          break
+        }
+      }
+      if(userKeyToDelete) {
+        const deleteURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToDelete}.json`
+        const deleteResponse = await fetch(
+          deleteURL,
+          { method: 'DELETE' }
+        )
+      
+
+      if (!deleteResponse.ok) {
+        throw new Error('Sorry, something went wrong..')
+      }
+
+      setShowSuccess(true)
+    } else {
+      console.log('errorakdfjailsfj')
+    }
+    } catch (err) {
+      setError(err.message || 'Sorry, something went wrong..');
+    }
+  }
+
   const nameInputClasses = nameInputHasError
     ? 'form-control invalid'
     : 'form-control'
@@ -221,17 +270,19 @@ const WelcomeForm = () => {
         <br /> you can always opt back in using the form below.</p>
       </header>
 
-      <form className='form' onSubmit={handleSubmitNewUser}>
+      {!isOptingOut && 
+        <form className='form' onSubmit={handleSubmitNewUser}>
         {!showSuccess && (<>
+        <div className="form-row">
           <div className='input-group'>
-            <label htmlFor="name">Name*</label>
+            <label className='label' htmlFor="name">Name*</label>
             <input
               type="text" 
               id="name" 
               onChange={handleNameChange}
               onBlur={handleNameBlur}
               value={enteredName} 
-              className={nameInputClasses} 
+              className={nameInputClasses}
             />
             {nameInputHasError && (
               <p className='error-text'>Please enter a valid name</p>
@@ -239,7 +290,7 @@ const WelcomeForm = () => {
           </div>
 
           <div className='input-group'>
-            <label htmlFor="email">Work Email*</label>
+            <label className='label' htmlFor="email">Work Email*</label>
             <input 
               type="email" 
               id="email"
@@ -253,24 +304,26 @@ const WelcomeForm = () => {
               <p className='error-text'>Please enter a valid email</p>
             )}
           </div>
+        </div>
 
+        <div className="form-row">
           <div className='input-group'>
-            <label htmlFor="location">Location</label>
+            <label className='label' htmlFor="job">Job Title</label>
             <input
               type="text" 
-              id="location" 
-              onChange={handleLocationChange}
-              onBlur={handleLocationBlur}
-              value={enteredLocation} 
-              className={locationInputClasses} 
+              id="job" 
+              onChange={handleJobChange}
+              onBlur={handleJobBlur}
+              value={enteredJob} 
+              className={jobInputClasses} 
             />
-            {locationInputHasError && (
-              <p className='error-text'>Please enter a valid location</p>
+            {jobInputHasError && (
+              <p className='error-text'>Please enter a valid job</p>
             )}
           </div>
 
           <div className='input-group'>
-            <label htmlFor="pillar">Pillar</label>
+            <label className='label' htmlFor="pillar">Pillar</label>
             <select  
               id="pillar" 
               onChange={handlePillarChange}
@@ -289,24 +342,56 @@ const WelcomeForm = () => {
               <p className='error-text'>Please select a pillar</p>
             )}
           </div>
+        </div>
 
+        <div className="form-row">
           <div className='input-group'>
-            <label htmlFor="job">Job Title</label>
+            <label className='label' htmlFor="location">Location</label>
             <input
               type="text" 
-              id="job" 
-              onChange={handleJobChange}
-              onBlur={handleJobBlur}
-              value={enteredJob} 
-              className={jobInputClasses} 
+              id="location" 
+              onChange={handleLocationChange}
+              onBlur={handleLocationBlur}
+              value={enteredLocation} 
+              className={locationInputClasses} 
             />
-            {jobInputHasError && (
-              <p className='error-text'>Please enter a valid job</p>
+            {locationInputHasError && (
+              <p className='error-text'>Please enter a valid location</p>
             )}
           </div>
 
           <div className='input-group'>
-            <label htmlFor="joy">What brings you joy?</label>
+            <p className='label'>You can opt out of participation in RRconnect here.</p>
+
+            <div className="radio-group">
+              <span htmlFor="optOut" className='radio-badge'>Opt out</span>
+              
+              <input
+                type="radio" 
+                id="optIn"
+                name="opt" 
+                defaultChecked
+                onClick={()=> setIsOptingOut(!isOptingOut)}
+              />
+              <label htmlFor="optIn">No</label>
+
+              <input
+                type="radio" 
+                id="optOut"
+                name="opt" 
+                onClick={()=> setIsOptingOut(!isOptingOut)}
+              />
+              <label htmlFor="optOut">Yes</label>
+              
+
+            </div>
+          </div>
+        </div>
+
+
+
+          <div className='input-group'>
+            <label className='label' htmlFor="joy">What brings you joy?</label>
             <textarea 
               id="joy" 
               cols="30" 
@@ -322,7 +407,7 @@ const WelcomeForm = () => {
           </div>
 
           <div className='input-group'>
-            <label htmlFor="passion">What passions do you have?</label>
+            <label className='label' htmlFor="passion">What passions do you have?</label>
             <textarea
             id="passion" 
             onChange={handlePassionChange}
@@ -336,7 +421,7 @@ const WelcomeForm = () => {
           </div>
 
           <div className='input-group'>
-            <label htmlFor="secret">What is something most people don't know about you?</label>
+            <label className='label' htmlFor="secret">What is something most people don't know about you?</label>
             <textarea
             id="secret" 
             cols="30" 
@@ -370,7 +455,40 @@ const WelcomeForm = () => {
             Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
           </p>
         </>)}
-      </form>
+      </form>}
+
+      {isOptingOut && 
+        <form className='form' onSubmit={handleRemoveUser}>
+        {!showSuccess && (<>
+          <div className='input-group'>
+            <label className='label' htmlFor="email">Enter your email here to OPT-OUT of RRconnect</label>
+            <input 
+              type="email" 
+              id="email"
+              ref={emailRef}
+              onChange={handleEmailChange}
+              onBlur={handleEmailBlur}
+              value={enteredEmail}
+              className={emailInputClasses} 
+            />
+            {emailInputHasError && (
+              <p className='error-text'>Please enter a valid email</p>
+            )}
+          </div>
+          <div className="input-group">
+            <input type="submit" value="opt out" id="submit" />
+          </div>
+        </>)}
+
+        {showSuccess && (<>
+          <p className='success-text'>
+            You have been removed from RRconnect.
+          </p>
+          <p className='success-text'>
+            Come back any time and fill out the entire form to opt back in!
+          </p>
+        </>)}
+      </form>}
     </>
   )
 }
