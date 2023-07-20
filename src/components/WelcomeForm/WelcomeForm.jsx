@@ -3,6 +3,8 @@ import useInput from '../../hooks/use-input'
 
 
 const WelcomeForm = () => {
+  // break forms into two seperate components
+
   const [users, setUsers] = useState([])
   const [isOptingOut, setIsOptingOut] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
@@ -478,6 +480,7 @@ const WelcomeForm = () => {
           <div className="input-group">
             <input type="submit" value="opt out" id="submit" />
           </div>
+          <p className='success-text' onClick={() => setIsOptingOut(false)}>click here to opt in</p>
         </>)}
 
         {showSuccess && (<>
