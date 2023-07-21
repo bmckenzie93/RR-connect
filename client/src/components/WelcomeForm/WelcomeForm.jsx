@@ -220,9 +220,8 @@ const WelcomeForm = () => {
       }
 
       setShowSuccess(true)
-    } else {
-      console.log('errorakdfjailssfj')
     }
+
     } catch (err) {
       setError(err.message || 'Sorry, something went wrong..');
     }
@@ -264,7 +263,7 @@ const WelcomeForm = () => {
     <> 
       <header className='header'>
         <p>Thank you for opting-in to RRconnect.</p>
-        <p>(I don't think we should thank them yet, they might think they are already opt in when reading this paragraph and not fill out the form below. Maybe we should say 'fill in the form below to opt in'..)</p>
+        <p>(I dont think we should thank them yet, they might think they are already opt in when reading this paragraph and not fill out the form below. Maybe we should say 'fill in the form below to opt in'..)</p>
         <p>Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.</p>
         <p>Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.</p>
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
