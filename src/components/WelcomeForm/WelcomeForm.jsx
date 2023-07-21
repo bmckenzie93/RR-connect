@@ -268,8 +268,6 @@ const WelcomeForm = () => {
         <p>Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.</p>
         <p>Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.</p>
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
-        <p><b>If you would like to opt out at any time, click <a href="#">here</a> and enter your email.</b> 
-        <br /> you can always opt back in using the form below.</p>
       </header>
 
       {!isOptingOut && 
@@ -373,7 +371,6 @@ const WelcomeForm = () => {
                 id="optIn"
                 name="opt" 
                 defaultChecked
-                onClick={()=> setIsOptingOut(!isOptingOut)}
               />
               <label htmlFor="optIn">No</label>
 
@@ -381,11 +378,9 @@ const WelcomeForm = () => {
                 type="radio" 
                 id="optOut"
                 name="opt" 
-                onClick={()=> setIsOptingOut(!isOptingOut)}
+                onClick={()=> setIsOptingOut(true)}
               />
               <label htmlFor="optOut">Yes</label>
-              
-
             </div>
           </div>
         </div>
