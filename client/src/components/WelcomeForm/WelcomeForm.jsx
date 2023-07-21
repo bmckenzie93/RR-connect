@@ -221,7 +221,7 @@ const WelcomeForm = () => {
 
       setShowSuccess(true)
     } else {
-      console.log('errorakdfjailsfj')
+      console.log('errorakdfjailssfj')
     }
     } catch (err) {
       setError(err.message || 'Sorry, something went wrong..');
