@@ -2,8 +2,12 @@
 opt in form for internal email service
 
 React JS front end using Vite
+
 Node JS back end using Express
+
 Firebase database
+
+
 
 Users can opt in and out of 'RR Connect' using a form. 
 
