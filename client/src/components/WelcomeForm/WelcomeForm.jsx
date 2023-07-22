@@ -3,12 +3,6 @@ import useInput from '../../hooks/use-input'
 
 
 const WelcomeForm = () => {
-  // break forms into seperate components
-
-  // instead of deleting them from db, just opt them out
-  // so they keep their list of peopel they have connected with before
-  // allow them to update their entries
-
   const [users, setUsers] = useState([])
   const [isOptingOut, setIsOptingOut] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
@@ -161,7 +155,7 @@ const WelcomeForm = () => {
             passion: enteredPassion.trim(),
             secret: enteredSecret.trim(),
             optedIn: true,
-            previousConnections: [email]
+            previousConnections: [enteredEmail.trim().toLowerCase()]
           }),
           headers: {
             'Content-Type': 'application/json',
