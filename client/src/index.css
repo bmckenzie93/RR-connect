@@ -14,6 +14,8 @@ p {
   margin-bottom: 1.5rem;
 }
 
+button:hover { cursor: pointer; }
+
 .main-header {
   text-align: center;
   padding: 2rem 0;
@@ -55,6 +57,9 @@ p {
   margin-right: 1rem;
   border-radius: 200px;
   padding: 3px 6px;
+  width: 50%;
+  height: 100%;
+  border: 1px solid #333;
 }
 
 .radio-group {
