@@ -156,8 +156,7 @@ const rrConnect = async () => {
   FETCH OPT IN USERS FROM DB
   =====================================================*/
   let activeUsers = []
-  console.log(activeUsers)
-
+  
   const fetchActiveUsers = async () => {
     const response = await fetch(`${DB_URL}.json`)
     const allUsers = await response.json()
@@ -166,14 +165,16 @@ const rrConnect = async () => {
     for(const key in allUsers){
       usersArray.push(allUsers[key])  
     }
-
+    
     usersArray.forEach(user => {
       if(user.optIn) {
         activeUsers.push(user) 
       }
     }) 
+    console.log(usersArray)
   }
   await fetchActiveUsers() 
+  console.log(activeUsers)
 
   // dummyUsers.forEach(user => {
   //   if(user.optIn) {
