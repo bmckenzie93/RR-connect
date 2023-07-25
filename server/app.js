@@ -4,9 +4,8 @@
 
   - create an rr firebase account for the prod backend
   - deploy this node app to render or similar service (myself and an rr account)
-  - automate the process using cron jobs -> node-cron
-  - send real emails -> node-mailer
-  - ability to generate reports from time frames
+  - ability to generate reports from given time frames or periodicly
+    maybe in its own db table or something
 
 =====================================================*/
 
@@ -18,10 +17,11 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const nodemailer = require("nodemailer")
+const cron = require('node-cron')
 const port = process.env.PORT || 5001
 
 const app = express()
-app.listen(port, () => console.log(`Server started on port  ${port}`))
+app.listen(port, () => console.log(`Server started on port ${port}`))
 
 
 
@@ -29,11 +29,11 @@ app.listen(port, () => console.log(`Server started on port  ${port}`))
 /*=====================================================
   GLOBAL VARIABLES
 =====================================================*/
-const DB_URL = 'https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users.json'
+const DB_URL = process.env.DB_URL
 const dummyUsers = require('./DUMMY_USERS/dummyUsers')
 const fallbackUserForOddNumberOfUsers = {
   name: 'FALLBACK VOLUNTEER',
-  email: 'FALLBACK@rrpartners.com',
+  email: 'brandon.mckenzie@rrpartners.com',
   job: 'FALLBACK',
   pillar: 'atlas',
   location: 'AZ',
@@ -49,11 +49,11 @@ const fallbackUserForOddNumberOfUsers = {
 
 
 /*=====================================================
-  UPDATE PREVIOUS CONNECTIONS
+  UPDATE PREVIOUS CONNECTIONS FUNCTION
 =====================================================*/
 const updatePreviousConnections = async (user) => {
   try {
-    const response = await fetch(DB_URL)
+    const response = await fetch(`${DB_URL}.json`)
     const users = await response.json()
 
     if (!response.ok) {
@@ -68,7 +68,7 @@ const updatePreviousConnections = async (user) => {
       }
     }
     if(userKeyToUpdate) {
-      const updateURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToUpdate}.json`
+      const updateURL = `${DB_URL}${userKeyToUpdate}.json`
       const updateResponse = await fetch(
         updateURL,
         {
@@ -95,7 +95,42 @@ const updatePreviousConnections = async (user) => {
 
 
 
+/*=====================================================
+  SEND EMAIL FUNCTION
+=====================================================*/
+const sendEmail = (recipientUserObj, partnerUserObj) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });  
+  
 
+  async function main() {
+    const info = await transporter.sendMail({
+      from: `"RR Connect Test" <no-reply@rrconnect.com>`,
+      to: recipientUserObj.email,
+      subject: "RR Connect Test",
+      //text: "Hello world text?", // plain text body
+      html: "<b>Did this one make it to your mobile outlook app?</b>", // html body  
+    });
+  
+    console.log("Message sent: %s", info.messageId);
+  }
+  
+  main().catch(console.error);
+}
+
+sendEmail({email:'brandon.mckenzie@rrpartners.com'})  
+
+
+/*===================================================== 
+!!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
+=====================================================*/
 const rrConnect = async () => {
   /*=====================================================
     FETCH OPT IN USERS FROM DB
@@ -103,7 +138,7 @@ const rrConnect = async () => {
   let activeUsers = []
 
   const fetchActiveUsers = async () => {
-    const response = await fetch(DB_URL)
+    const response = await fetch(`${DB_URL}.json`)
     const allUsers = await response.json()
     let usersArray = []
     
@@ -145,7 +180,7 @@ const rrConnect = async () => {
 
 
   /*=====================================================
-    PAIR OPT IN USERS
+    PAIR USERS, SEND EMAILS
   =====================================================*/
   const userQueue = [...shuffledUsers]
 
@@ -165,6 +200,7 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
     }
@@ -176,6 +212,7 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
     } 
@@ -190,7 +227,7 @@ const rrConnect = async () => {
 
 
     /*===================================================== 
-      UPDATE PAIRED USERS PREVIOUS CONNECTIONS
+      UPDATE PAIRED USERS' PREVIOUS CONNECTIONS
     =====================================================*/
     currentUser.previousConnections.push(partner.email);
     partner.previousConnections.push(currentUser.email);
@@ -217,12 +254,20 @@ const rrConnect = async () => {
       continue
     }            
   }
-    
+
+
+
+/*=====================================================
+  SCHEDULE CRON JOB
+=====================================================*/
+
+
+
 
   console.log('=====================START=====================================')
   console.log('===============================================================')
   console.log('===============================================================')
-  console.log(activeUsers)
+  // console.log(activeUsers)
   console.log('===============================================================')
   console.log('===============================================================')
   console.log('=======================END=====================================')
@@ -230,55 +275,6 @@ const rrConnect = async () => {
 
 
 
-/*===================================================== 
-  !!!!!!!!!!!!!!!!!!RUN THE PROGRAM!!!!!!!!!!!!!!!!!!
-=====================================================*/
-rrConnect()
-/*===================================================== 
-  !!!!!!!!!!!!!!!!!!RUN THE PROGRAM!!!!!!!!!!!!!!!!!!
-=====================================================*/
 
 
-
-/*
-  NOTE FROM MONDAY:
-
-    Previous connections are updating properly
-    and resetting once everyone is full. 
-*/
-
-const sendEmail = () => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true,
-    auth: {
-      // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
-    }
-  });
-  
-  // async..await is not allowed in global scope, must use a wrapper
-  async function main() {
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <foo@example.com>', // sender address
-      to: "bar@example.com, baz@example.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
-    });
-  
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  
-    //
-    // NOTE: You can go to https://forwardemail.net/my-account/emails to see your email delivery status and preview
-    //       Or you can use the "preview-email" npm package to preview emails locally in browsers and iOS Simulator
-    //       <https://github.com/forwardemail/preview-email>
-    //
-  }
-  
-  main().catch(console.error);
-}
+cron.schedule("*/5 * * * *", sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
