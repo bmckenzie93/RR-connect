@@ -125,8 +125,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
   main().catch(console.error);
 }
 
-sendEmail({email:'brandon.mckenzie@rrpartners.com'})  
 
+cron.schedule("*/5 * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
 
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
@@ -277,4 +277,4 @@ const rrConnect = async () => {
 
 
 
-cron.schedule("*/5 * * * *", sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
+
