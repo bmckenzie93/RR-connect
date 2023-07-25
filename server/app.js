@@ -126,7 +126,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 }
 
 
-cron.schedule("*/5 * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
+cron.schedule("*/30 * * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
 
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
