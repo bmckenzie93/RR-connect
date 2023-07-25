@@ -3,9 +3,9 @@
   TODO:
 
   - create an rr firebase account for the prod backend
-  - deploy this node app to render or similar service (myself and an rr account)
   - ability to generate reports from given time frames or periodicly
     maybe in its own db table or something
+  - handle empty hobbies and passions
 
 =====================================================*/
 
@@ -36,10 +36,10 @@ const fallbackUserForOddNumberOfUsers = {
   email: 'brandon.mckenzie@rrpartners.com',
   job: 'FALLBACK',
   pillar: 'atlas',
-  location: 'AZ',
-  joy: 'coding',
-  passion: 'coding',
-  secret: 'none',
+  location: 'FB',
+  hobbies: 'falling back',
+  passions: 'fall and backs',
+  funFact: 'fell back',
   optIn: true,
   previousConnections: [],
   createdAt: '',
@@ -68,7 +68,7 @@ const updatePreviousConnections = async (user) => {
       }
     }
     if(userKeyToUpdate) {
-      const updateURL = `${DB_URL}${userKeyToUpdate}.json`
+      const updateURL = `${DB_URL}/${userKeyToUpdate}.json`
       const updateResponse = await fetch(
         updateURL,
         {
@@ -99,6 +99,25 @@ const updatePreviousConnections = async (user) => {
   SEND EMAIL FUNCTION
 =====================================================*/
 const sendEmail = (recipientUserObj, partnerUserObj) => {
+  const bodyText = `Thank you for opting-in to RRconnect. Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. YOUR CONNECTION: Name: ${partnerUserObj.name} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} Hobbies: ${partnerUserObj.joy} Passions: ${partnerUserObj.passions} Fun fact: ${partnerUserObj.funFact}`
+  const bodyHtml = `
+    <h1>Thank you for opting-in to RRconnect.</h1>
+    <p>Below is the person you have been randomly assigned to connect with over the next two weeks.</p>
+    <p>We suggest you reach out and schedule a Teams meeting or call to get to know one another.</p>
+    <br></br>
+    <h2>Your Connection:</h2>
+    <ul>
+      <li>Name: ${partnerUserObj.name}</li>
+      <li>Location: ${partnerUserObj.location}</li>
+      <li>Pillar: ${partnerUserObj.pillar}</li>
+      <li>Job Title: ${partnerUserObj.job}</li>
+      <li>Hobbies: ${partnerUserObj.hobbies}</li>
+      <li>Passions: ${partnerUserObj.passions}</li>
+      <li>Fun fact: ${partnerUserObj.funFact}</li>
+    </ul>
+  `
+
+
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -115,8 +134,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       from: `"RR Connect Test" <no-reply@rrconnect.com>`,
       to: recipientUserObj.email,
       subject: "RR Connect Test",
-      //text: "Hello world text?", // plain text body
-      html: "<b>Did this one make it to your mobile outlook app?</b>", // html body  
+      text: bodyText,
+      html: bodyHtml, 
     });
   
     console.log("Message sent: %s", info.messageId);
@@ -126,12 +145,13 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 }
 
 
-// cron.schedule("*/30 * * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
-
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
 =====================================================*/
 const rrConnect = async () => {
+  console.log('=======================START===========================')
+  console.log('=======================START===========================')
+  console.log('=======================START===========================')
   /*=====================================================
     FETCH OPT IN USERS FROM DB
   =====================================================*/
@@ -199,8 +219,9 @@ const rrConnect = async () => {
 
 
       // SEND EMAILS WITH FALLBACK
-      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
-
+      // console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
     }
@@ -211,7 +232,8 @@ const rrConnect = async () => {
     if (!partner && userQueue.length === 1) {
 
       // SEND EMAILS WITH FALLBACK
-      console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      // console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -222,8 +244,8 @@ const rrConnect = async () => {
     /*=====================================================
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
-    console.log(currentUser.name + ' and ' + partner.name)
-
+    // console.log(currentUser.name + ' and ' + partner.name)
+    sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
 
     /*===================================================== 
@@ -248,33 +270,22 @@ const rrConnect = async () => {
       const currentUser = userQueue[0]
 
       // SEND EMAILS HERE
-      console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
+      // console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
     }            
   }
 
+  console.log('=======================END=============================')
+  console.log('=======================END=============================')
+  console.log('=======================END=============================')
+} 
+
 
 
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-
-
-
-
-  console.log('=====================START=====================================')
-  console.log('===============================================================')
-  console.log('===============================================================')
-  // console.log(activeUsers)
-  console.log('===============================================================')
-  console.log('===============================================================')
-  console.log('=======================END=====================================')
-} 
-
-
-
-
-
-
+cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
