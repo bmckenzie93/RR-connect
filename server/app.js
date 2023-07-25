@@ -153,9 +153,10 @@ const rrConnect = async () => {
   console.log('=======================START===========================')
   console.log('=======================START===========================')
   /*=====================================================
-    FETCH OPT IN USERS FROM DB
+  FETCH OPT IN USERS FROM DB
   =====================================================*/
   let activeUsers = []
+  console.log(activeUsers)
 
   const fetchActiveUsers = async () => {
     const response = await fetch(`${DB_URL}.json`)
@@ -180,7 +181,6 @@ const rrConnect = async () => {
   //   }
   // })
 
-console.log(activeUsers)
 
   /*=====================================================
     SHUFFLE OPT IN USERS
