@@ -219,7 +219,7 @@ const rrConnect = async () => {
 
 
       // SEND EMAILS WITH FALLBACK
-      // console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
@@ -232,7 +232,7 @@ const rrConnect = async () => {
     if (!partner && userQueue.length === 1) {
 
       // SEND EMAILS WITH FALLBACK
-      // console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
@@ -244,7 +244,7 @@ const rrConnect = async () => {
     /*=====================================================
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
-    // console.log(currentUser.name + ' and ' + partner.name)
+    console.log(currentUser.name + ' and ' + partner.name)
     sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
 
@@ -270,7 +270,7 @@ const rrConnect = async () => {
       const currentUser = userQueue[0]
 
       // SEND EMAILS HERE
-      // console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
+      console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
@@ -288,4 +288,4 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
+cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
