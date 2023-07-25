@@ -102,7 +102,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: false,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD
@@ -126,8 +126,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 }
 
 
-cron.schedule("*/30 * * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
-
+// cron.schedule("*/30 * * * * *", ()=> sendEmail({email:'brandon.mckenzie@rrpartners.com'})) // runs every 4 seconds
+console.log(EMAIL_HOST)
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
 =====================================================*/
