@@ -204,6 +204,8 @@ const rrConnect = async () => {
   =====================================================*/
   const userQueue = [...shuffledUsers]
 
+  console.log(shuffledUsers)
+
   while (userQueue.length > 0) {
     const currentUser = userQueue[0]
     const partner = userQueue.find(user => !currentUser.previousConnections.includes(user.email))
