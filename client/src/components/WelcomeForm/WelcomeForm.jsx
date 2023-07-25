@@ -93,30 +93,30 @@ const WelcomeForm = () => {
   } = useInput(value => value.trim() !== '')
 
   const {
-    value: enteredJoy,
-    isValid: enteredJoyIsValid,
-    hasError: joyInputHasError,
-    handleValueChange: handleJoyChange,
-    handleInputBlur: handleJoyBlur,
-    handleResetInput: handleJoyReset
+    value: enteredHobbies,
+    isValid: enteredHobbiesIsValid,
+    hasError: hobbiesInputHasError,
+    handleValueChange: handleHobbiesChange,
+    handleInputBlur: handleHobbiesBlur,
+    handleResetInput: handleHobbiesReset
   } = useInput(value => value.trim() !== '')
 
   const {
-    value: enteredPassion,
-    isValid: enteredPassionIsValid,
-    hasError: passionInputHasError,
-    handleValueChange: handlePassionChange,
-    handleInputBlur: handlePassionBlur,
-    handleResetInput: handlePassionReset
+    value: enteredPassions,
+    isValid: enteredPassionsIsValid,
+    hasError: passionsInputHasError,
+    handleValueChange: handlePassionsChange,
+    handleInputBlur: handlePassionsBlur,
+    handleResetInput: handlePassionsReset
   } = useInput(value => value.trim() !== '')
 
   const {
-    value: enteredSecret,
-    isValid: enteredSecretIsValid,
-    hasError: secretInputHasError,
-    handleValueChange: handleSecretChange,
-    handleInputBlur: handleSecretBlur,
-    handleResetInput: handleSecretReset
+    value: enteredFunFact,
+    isValid: enteredFunFactIsValid,
+    hasError: funFactInputHasError,
+    handleValueChange: handleFunFactChange,
+    handleInputBlur: handleFunFactBlur,
+    handleResetInput: handleFunFactReset
   } = useInput(value => value.trim() !== '')
 
   if( 
@@ -125,9 +125,9 @@ const WelcomeForm = () => {
     enteredLocationIsValid &&
     enteredPillarIsValid &&
     enteredJobIsValid &&
-    enteredJoyIsValid &&
-    enteredPassionIsValid &&
-    enteredSecretIsValid 
+    enteredHobbiesIsValid &&
+    enteredPassionsIsValid &&
+    enteredFunFactIsValid 
   ) { formIsValid = true }
 
   /*=====================================================
@@ -142,9 +142,9 @@ const WelcomeForm = () => {
       !enteredLocationIsValid ||
       !enteredPillarIsValid ||
       !enteredJobIsValid ||
-      !enteredJoyIsValid ||
-      !enteredPassionIsValid ||
-      !enteredSecretIsValid 
+      !enteredHobbiesIsValid ||
+      !enteredPassionsIsValid ||
+      !enteredFunFactIsValid 
     ) { return }
 
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
@@ -167,9 +167,9 @@ const WelcomeForm = () => {
             location: enteredLocation.trim(),
             pillar: enteredPillar,
             job: enteredJob.trim(),
-            joy: enteredJoy.trim(),
-            passion: enteredPassion.trim(),
-            secret: enteredSecret.trim(),
+            hobbies: enteredHobbies.trim(),
+            passions: enteredPassions.trim(),
+            funFact: enteredFunFact.trim(),
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
@@ -339,15 +339,15 @@ const WelcomeForm = () => {
     ? 'form-control invalid'
     : 'form-control'
 
-    const joyInputClasses = joyInputHasError
+    const hobbiesInputClasses = hobbiesInputHasError
     ? 'form-control invalid'
     : 'form-control'
 
-    const passionInputClasses = passionInputHasError
+    const passionsInputClasses = passionsInputHasError
     ? 'form-control invalid'
     : 'form-control'
 
-    const secretInputClasses = secretInputHasError
+    const funFactInputClasses = funFactInputHasError
     ? 'form-control invalid'
     : 'form-control'
 
@@ -409,7 +409,7 @@ const WelcomeForm = () => {
               className={jobInputClasses} 
             />
             {jobInputHasError && (
-              <p className='error-text'>Please enter a valid job</p>
+              <p className='error-text'>Please enter a valid job title</p>
             )}
           </div>
 
@@ -470,48 +470,48 @@ const WelcomeForm = () => {
         </div>
 
           <div className='input-group'>
-            <label className='label' htmlFor="joy">What brings you joy?</label>
+            <label className='label' htmlFor="hobbies">What are some of your hobbies?</label>
             <textarea 
-              id="joy" 
+              id="hobbies" 
               cols="30" 
               rows="10"
-              onChange={handleJoyChange}
-              onBlur={handleJoyBlur}
-              value={enteredJoy} 
-              className={joyInputClasses} 
+              onChange={handleHobbiesChange}
+              onBlur={handleHobbiesBlur}
+              value={enteredHobbies} 
+              className={hobbiesInputClasses} 
             ></textarea>
-            {joyInputHasError && (
-              <p className='error-text'>Please enter a joy</p>
+            {hobbiesInputHasError && (
+              <p className='error-text'>Please enter some hobbies</p>
             )}
           </div>
 
           <div className='input-group'>
-            <label className='label' htmlFor="passion">What passions do you have?</label>
+            <label className='label' htmlFor="passions">What passions do you have?</label>
             <textarea
-            id="passion" 
-            onChange={handlePassionChange}
-            onBlur={handlePassionBlur}
-            value={enteredPassion} 
-            className={passionInputClasses} 
+            id="passions" 
+            onChange={handlePassionsChange}
+            onBlur={handlePassionsBlur}
+            value={enteredPassions} 
+            className={passionsInputClasses} 
             ></textarea>
-          {passionInputHasError && (
-            <p className='error-text'>Please enter a valid passion</p>
+          {passionsInputHasError && (
+            <p className='error-text'>Please enter some valid passions</p>
           )}
           </div>
 
           <div className='input-group'>
-            <label className='label' htmlFor="secret">What is something most people don't know about you?</label>
+            <label className='label' htmlFor="funFact">What is something most people don't know about you?</label>
             <textarea
-            id="secret" 
+            id="funFact" 
             cols="30" 
             rows="10"
-            onChange={handleSecretChange}
-            onBlur={handleSecretBlur}
-            value={enteredSecret} 
-            className={secretInputClasses} 
+            onChange={handleFunFactChange}
+            onBlur={handleFunFactBlur}
+            value={enteredFunFact} 
+            className={funFactInputClasses} 
             ></textarea>
-            {secretInputHasError && (
-              <p className='error-text'>Please enter a valid Secret</p>
+            {funFactInputHasError && (
+              <p className='error-text'>Please enter a valid Fun Fact</p>
             )}
           </div>
 
