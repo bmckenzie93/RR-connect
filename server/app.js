@@ -180,7 +180,7 @@ const rrConnect = async () => {
   //   }
   // })
 
-
+console.log(activeUsers)
 
   /*=====================================================
     SHUFFLE OPT IN USERS
