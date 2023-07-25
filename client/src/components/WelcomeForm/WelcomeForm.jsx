@@ -170,7 +170,7 @@ const WelcomeForm = () => {
             joy: enteredJoy.trim(),
             passion: enteredPassion.trim(),
             secret: enteredSecret.trim(),
-            optedIn: true,
+            optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
             updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
@@ -234,7 +234,7 @@ const WelcomeForm = () => {
           {
             method: 'PATCH',
             body: JSON.stringify({
-              optedIn: false,
+              optIn: false,
               updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
             }),
             headers: {
@@ -265,7 +265,7 @@ const WelcomeForm = () => {
 
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
     // TODO: if user is already opt in, stop it
-    
+
     if(!userExists) {
       alert('That email does not exist in our system')
       handleEmailReset()
@@ -295,7 +295,7 @@ const WelcomeForm = () => {
           {
             method: 'PATCH',
             body: JSON.stringify({
-              optedIn: true,
+              optIn: true,
               updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
             }),
             headers: {
@@ -557,7 +557,7 @@ const WelcomeForm = () => {
           <div className="input-group">
             <input type="submit" value="opt out" id="submit" />
           </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false)}}>&lt; back</p>
+          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
         </>)}
 
         {showSuccess && (<>
@@ -567,7 +567,7 @@ const WelcomeForm = () => {
           <p className='success-text'>
             Come back any time and fill out the form to opt back in!
           </p>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false)}}>&lt; back</p>
+          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
         </>)}
       </form>}
 
@@ -592,7 +592,7 @@ const WelcomeForm = () => {
           <div className="input-group">
             <input type="submit" value="opt in" id="submit" />
           </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false)}}>&lt; back</p>
+          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
         </>)}
 
         {showSuccess && (<>
