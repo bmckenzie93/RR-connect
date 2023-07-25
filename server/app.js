@@ -291,4 +291,4 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
+// cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
