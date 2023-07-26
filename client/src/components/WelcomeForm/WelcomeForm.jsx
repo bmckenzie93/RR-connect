@@ -379,7 +379,8 @@ const WelcomeForm = () => {
         <p>Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.</p>
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
       </header>
-      <img src={testImage} alt="testing123" />
+      <img src={testImage} alt="testing12" />
+      {/* /assets/test-apples-eeb250cc.png */}
 
       {!isOptingOut && !isOptingIn &&
         <form className='form' onSubmit={handleSubmitNewUser}>
