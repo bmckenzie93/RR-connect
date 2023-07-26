@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import useInput from '../../hooks/use-input'
+import testImage from '../../assets/test-apples.png'
 
 
 const WelcomeForm = () => {
@@ -135,7 +136,7 @@ const WelcomeForm = () => {
   =====================================================*/
   const handleSubmitNewUser = async (e) => {
     e.preventDefault()
-
+    
     if(
       !enteredNameIsValid ||
       !enteredEmailIsValid ||
@@ -156,6 +157,9 @@ const WelcomeForm = () => {
       return
     } 
 
+    const date = new Date()
+    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
+
     try {
       const response = await fetch(
         DB_URL,
@@ -172,8 +176,9 @@ const WelcomeForm = () => {
             funFact: enteredFunFact.trim(),
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
-            createdAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
-            updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
+            createdAt: dateString,
+            updatedAt: dateString,
+            optHistory: [`opt in: ${dateString}`]
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -200,26 +205,29 @@ const WelcomeForm = () => {
   =====================================================*/
   const handleOptOutUser = async (e) => {
     e.preventDefault()
-
+    
     if(!enteredEmailIsValid) return 
-
+    
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
-
+    
     if(!userExists) {
       alert('That email does not exist in our system')
       handleEmailReset()
       emailRef.current.focus()
       return
     } 
-
+    
+    const date = new Date()
+    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
+    
     try {
       const response = await fetch(DB_URL)
       const users = await response.json()
-
+      
       if (!response.ok) {
         throw new Error('Sorry, something went wrong..')
       }
-
+      
       let userKeyToOptOut
       for(const key in users) {
         if(users[key].email === enteredEmail.trim().toLowerCase()) {
@@ -227,6 +235,9 @@ const WelcomeForm = () => {
           break
         }
       }
+      
+      const newOptHistory = [ ...users[userKeyToOptOut].optHistory,`opt out: ${dateString}` ]
+
       if(userKeyToOptOut) {
         const optOutURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToOptOut}.json`
         const optOutResponse = await fetch(
@@ -235,7 +246,8 @@ const WelcomeForm = () => {
             method: 'PATCH',
             body: JSON.stringify({
               optIn: false,
-              updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
+              updatedAt: dateString,
+              optHistory: newOptHistory
             }),
             headers: {
               'Content-Type': 'application/json',
@@ -273,6 +285,9 @@ const WelcomeForm = () => {
       return
     } 
 
+    const date = new Date()
+    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
+
     try {
       const response = await fetch(DB_URL)
       const users = await response.json()
@@ -288,6 +303,9 @@ const WelcomeForm = () => {
           break
         }
       }
+
+      const newOptHistory = [ ...users[userKeyToOptIn].optHistory,`opt in: ${dateString}` ]
+
       if(userKeyToOptIn) {
         const optOutURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToOptIn}.json`
         const optInResponse = await fetch(
@@ -296,7 +314,8 @@ const WelcomeForm = () => {
             method: 'PATCH',
             body: JSON.stringify({
               optIn: true,
-              updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
+              updatedAt: dateString,
+              optHistory: newOptHistory
             }),
             headers: {
               'Content-Type': 'application/json',
@@ -360,6 +379,7 @@ const WelcomeForm = () => {
         <p>Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.</p>
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
       </header>
+      <img src={testImage} alt="testing123" />
 
       {!isOptingOut && !isOptingIn &&
         <form className='form' onSubmit={handleSubmitNewUser}>
@@ -455,12 +475,14 @@ const WelcomeForm = () => {
             <p className='label'>EXISTING USERS can opt out and in here:</p>
 
             <div className="radio-group">
-              <button 
+              <button
+                type='button'
                 className='radio-badge'
                 onClick={() => setIsOptingOut(true)}>
                   Opt Out
               </button>
               <button 
+                type='button'
                 className='radio-badge'
                 onClick={()=> setIsOptingIn(true)}>
                   Opt In

@@ -8,6 +8,11 @@
   - allow them to update their entries? edit mode?
   - eventually use auth? passwords?
 
+  - create a stats page
+  -- current opt in users
+  -- users opt in this month
+  
+
 =====================================================*/
 
 import { useState } from 'react'

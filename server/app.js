@@ -6,9 +6,9 @@
   - ability to generate reports from given time frames or periodicly
     maybe in its own db table or something
   - handle empty hobbies and passions
-  - send one email to both people to auto connect them
-  - create an admin portal for reports and changing the cron jobs
-
+  - send one email to both people to auto connect them?
+  - add updated date + opt in or out in an array
+  - 'opt in on {date}, opt out on {date} - in array
 
 =====================================================*/
 
