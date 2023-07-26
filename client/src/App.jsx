@@ -4,7 +4,6 @@
 
   - break forms into seperate components
   - make one function for opt in/ opt out user
-  - instead of deleting them from db, just opt them out
   - add fancy comments to the react files
   - allow them to update their entries? edit mode?
   - eventually use auth? passwords?

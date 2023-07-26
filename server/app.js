@@ -6,6 +6,9 @@
   - ability to generate reports from given time frames or periodicly
     maybe in its own db table or something
   - handle empty hobbies and passions
+  - send one email to both people to auto connect them
+  - create an admin portal for reports and changing the cron jobs
+
 
 =====================================================*/
 
@@ -115,6 +118,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       <li>Passions: ${partnerUserObj.passions}</li>
       <li>Fun fact: ${partnerUserObj.funFact}</li>
     </ul>
+    <h1>THIS IS FROM ROUND 4 OF TESTING</h1>
   `
 
 
@@ -152,6 +156,8 @@ const rrConnect = async () => {
   console.log('=======================START===========================')
   console.log('=======================START===========================')
   console.log('=======================START===========================')
+
+
   /*=====================================================
   FETCH OPT IN USERS FROM DB
   =====================================================*/
@@ -173,8 +179,8 @@ const rrConnect = async () => {
     }) 
     console.log(usersArray)
   }
+
   await fetchActiveUsers() 
-  console.log(activeUsers)
 
   // dummyUsers.forEach(user => {
   //   if(user.optIn) {
@@ -205,8 +211,6 @@ const rrConnect = async () => {
   =====================================================*/
   const userQueue = [...shuffledUsers]
 
-  console.log(shuffledUsers)
-
   while (userQueue.length > 0) {
     const currentUser = userQueue[0]
     const partner = userQueue.find(user => !currentUser.previousConnections.includes(user.email))
@@ -224,6 +228,7 @@ const rrConnect = async () => {
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -237,6 +242,7 @@ const rrConnect = async () => {
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -248,7 +254,8 @@ const rrConnect = async () => {
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
     console.log(currentUser.name + ' and ' + partner.name)
-    sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+    sendEmail(currentUser, partner)
+    sendEmail(partner, currentUser)
 
 
     /*===================================================== 
@@ -275,6 +282,7 @@ const rrConnect = async () => {
       // SEND EMAILS HERE
       console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
@@ -286,9 +294,20 @@ const rrConnect = async () => {
   console.log('=======================END=============================')
 } 
 
+// rrConnect()
+
 
 
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("*/10 * * * * *", ()=> rrConnect()) // runs every 4 seconds 
+// cron.schedule("*/59 * * * * *", ()=> rrConnect()) // runs every minute
+
+
+
+
+
+// TODO TUESDAY:
+// add a third arg to send email, for 'reason for fallback'
+// run the program manually one at a time, before implementing the cron job
+// only send the email after everyone received theirs first
