@@ -2,74 +2,28 @@
 
   TODO:
 
-  - use a router for /stats page
   - polish the style
+  - handle empty hobbies and passions
   - confirm required fields & minimum length
-  - make sure .env works on netlify
   - create a stats page
+  -- hide stats behind a basic easy password
   -- current opt in users
   -- users opt in this month
 
 
 =====================================================*/
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/home'
+import Reports from './pages/reports'
 
-import { useState } from 'react'
-
-import Container from './components/UI/Container/Container'
-import WelcomeForm from './components/WelcomeForm/WelcomeForm'
-import OptForm from './components/OptForm/OptForm'
-import StatsPage from './components/StatsPage/StatsPage'
 
 
 function App() {
-  const [showWelcomeForm, setShowWelcomeForm] = useState(true)
-  const [showStatsPage, setShowStatsPage] = useState(false)
-  const [optForm, setOptForm] = useState({
-    show: false,
-    optOut: true
-  })
-
-  const handleShowWelcomeForm = () => {
-    setShowWelcomeForm(true)
-    setOptForm({ show: false, optOut: true })
-  }
-
-  const handleShowOptOutForm = () => {
-    setShowWelcomeForm(false)
-
-    setOptForm({
-      show: true,
-      optOut: true
-    })
-  }
-
-  const handleShowOptInForm = () => {
-    setShowWelcomeForm(false)
-
-    setOptForm({
-      show: true,
-      optOut: false
-    })
-  }
-
-
   return (
-    <>
-      <h1 className='main-header'>RR Connect App</h1>
-      <Container>
-        {showWelcomeForm && <WelcomeForm 
-          onShowOptOutForm={handleShowOptOutForm}
-          onShowOptInForm={handleShowOptInForm} />
-        }
-
-        {optForm.show && <OptForm 
-        optOut={optForm.optOut} 
-        onShowWelcomeForm={handleShowWelcomeForm}
-        />}
-
-        {showStatsPage && <StatsPage />}
-      </Container>
-    </>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/reports' element={<Reports />} />
+    </Routes>
   )
 }
 
