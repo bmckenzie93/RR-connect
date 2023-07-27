@@ -290,11 +290,9 @@ const rrConnect = async () => {
   console.log('=======================END=============================')
 } 
 
-// rrConnect()
-
 
 
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-cron.schedule("* * * * *", ()=> rrConnect()) // runs every 30 sec 
+// cron.schedule("* * * * *", ()=> rrConnect())
