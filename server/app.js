@@ -176,7 +176,6 @@ const rrConnect = async () => {
         activeUsers.push(user) 
       }
     }) 
-    console.log(usersArray)
   }
 
   await fetchActiveUsers() 
@@ -293,11 +292,11 @@ const rrConnect = async () => {
   console.log('=======================END=============================')
 } 
 
-rrConnect()
+// rrConnect()
 
 
 
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("* * * * *", ()=> rrConnect()) // runs every minute 
+cron.schedule("*/30 * * * * *", ()=> rrConnect()) // runs every 30 sec 
