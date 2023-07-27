@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Container from '../components/UI/Container/Container'
 import WelcomeForm from '../components/WelcomeForm/WelcomeForm'
 import OptForm from '../components/OptForm/OptForm'
-import StatsPage from '../components/StatsPage/StatsPage'
 
 const Home = () => {
   const [showWelcomeForm, setShowWelcomeForm] = useState(true)
@@ -48,8 +47,6 @@ const Home = () => {
       optOut={optForm.optOut} 
       onShowWelcomeForm={handleShowWelcomeForm}
       />}
-
-      {showStatsPage && <StatsPage />}
     </Container>
   </>)
 }
