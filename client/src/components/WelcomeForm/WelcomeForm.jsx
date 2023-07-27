@@ -3,16 +3,10 @@ import useInput from '../../hooks/use-input'
 
 
 const WelcomeForm = (props) => {
-  /*=====================================================
-    COMPONENT STATES
-  =====================================================*/
   const [users, setUsers] = useState([])
   const [showSuccess, setShowSuccess] = useState(false)
   const [error, setError] = useState(null);
 
-  /*=====================================================
-    VARIABLES
-  =====================================================*/
   const DB_URL = import.meta.env.VITE_DB_URL
   const emailRef = useRef()
   let formIsValid = false
@@ -198,141 +192,6 @@ const WelcomeForm = (props) => {
   }
 
   /*=====================================================
-    OPT-OUT EXISTING USER
-  =====================================================*/
-  const handleOptOutUser = async (e) => {
-    e.preventDefault()
-    
-    if(!enteredEmailIsValid) return 
-    
-    const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
-    
-    if(!userExists) {
-      alert('That email does not exist in our system')
-      handleEmailReset()
-      emailRef.current.focus()
-      return
-    } 
-    
-    const date = new Date()
-    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
-    
-    try {
-      const response = await fetch(`${DB_URL}.json`)
-      const users = await response.json()
-      
-      if (!response.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-      
-      let userKeyToOptOut
-      for(const key in users) {
-        if(users[key].email === enteredEmail.trim().toLowerCase()) {
-          userKeyToOptOut = key
-          break
-        }
-      }
-      
-      const newOptHistory = [ ...users[userKeyToOptOut].optHistory,`opt out: ${dateString}` ]
-
-      if(userKeyToOptOut) {
-        const optOutURL = `${DB_URL}/${userKeyToOptOut}.json`
-        const optOutResponse = await fetch(
-          optOutURL,
-          {
-            method: 'PATCH',
-            body: JSON.stringify({
-              optIn: false,
-              updatedAt: dateString,
-              optHistory: newOptHistory
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-
-      if (!optOutResponse.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-
-      setShowSuccess(true)
-    }
-
-    } catch (err) {
-      setError(err.message || 'Sorry, something went wrong..');
-    }
-  }
-
-  /*=====================================================
-    OPT-IN EXISTING USER
-  =====================================================*/
-  const handleOptInUser = async (e) => {
-    e.preventDefault()
-
-    if(!enteredEmailIsValid) return 
-
-    const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
-    // TODO: if user is already opt in, stop it
-
-    if(!userExists) {
-      alert('That email does not exist in our system')
-      handleEmailReset()
-      emailRef.current.focus()
-      return
-    } 
-
-    const date = new Date()
-    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
-
-    try {
-      const response = await fetch(`${DB_URL}.json`)
-      const users = await response.json()
-
-      if (!response.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-
-      let userKeyToOptIn
-      for(const key in users) {
-        if(users[key].email === enteredEmail.trim().toLowerCase()) {
-          userKeyToOptIn = key
-          break
-        }
-      }
-
-      const newOptHistory = [ ...users[userKeyToOptIn].optHistory,`opt in: ${dateString}` ]
-
-      if(userKeyToOptIn) {
-        const optOutURL = `${DB_URL}/${userKeyToOptIn}.json`
-        const optInResponse = await fetch(
-          optOutURL,
-          {
-            method: 'PATCH',
-            body: JSON.stringify({
-              optIn: true,
-              updatedAt: dateString,
-              optHistory: newOptHistory
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-
-      if (!optInResponse.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-
-      setShowSuccess(true)
-    }
-
-    } catch (err) {
-      setError(err.message || 'Sorry, something went wrong..');
-    }
-  }
-
-  /*=====================================================
     TOGGLE VALID INPUT CLASSNAMES
   =====================================================*/
   const nameInputClasses = nameInputHasError
@@ -367,6 +226,8 @@ const WelcomeForm = (props) => {
     ? 'form-control invalid'
     : 'form-control'
 
+
+    
   return ( 
     <> 
       <header className='header'>

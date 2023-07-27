@@ -2,8 +2,10 @@
 
   TODO:
 
-  - make one function for opt in/ opt out user
-  
+  - use a router for /stats page
+  - polish the style
+  - confirm required fields & minimum length
+  - make sure .env works on netlify
   - create a stats page
   -- current opt in users
   -- users opt in this month

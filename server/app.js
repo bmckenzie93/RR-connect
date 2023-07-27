@@ -5,8 +5,6 @@
   - create an rr firebase account for the prod backend
   - use an rr smtp account to send the emails on prod
   - make sure cron jobs fire from production server
-  - ability to generate reports from given time frames or periodicly
-    maybe in its own db table or something
   - handle empty hobbies and passions
 
 =====================================================*/

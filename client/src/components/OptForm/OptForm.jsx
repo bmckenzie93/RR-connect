@@ -2,18 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import useInput from '../../hooks/use-input'
 
 
-const OptForm = ({ optOut }) => {
-  /*=====================================================
-    COMPONENT STATES
-  =====================================================*/
+const OptForm = ({ optOut, onShowWelcomeForm }) => {
   const [users, setUsers] = useState([])
   const [isOptingOut, setIsOptingOut] = useState(optOut)
   const [showSuccess, setShowSuccess] = useState(false)
   const [error, setError] = useState(null);
 
-  /*=====================================================
-    VARIABLES
-  =====================================================*/
   const DB_URL = import.meta.env.VITE_DB_URL
   const emailRef = useRef()
   let formIsValid = false
@@ -58,9 +52,9 @@ const OptForm = ({ optOut }) => {
   if(enteredEmailIsValid) { formIsValid = true }
 
   /*=====================================================
-    OPT-OUT EXISTING USER
+    OPT IN/OUT EXISTING USER
   =====================================================*/
-  const handleOptOutUser = async (e) => {
+  const handleOptUser = async (e) => {
     e.preventDefault()
     
     if(!enteredEmailIsValid) return 
@@ -85,24 +79,29 @@ const OptForm = ({ optOut }) => {
         throw new Error('Sorry, something went wrong..')
       }
       
-      let userKeyToOptOut
+      let userKeyToOpt
       for(const key in users) {
         if(users[key].email === enteredEmail.trim().toLowerCase()) {
-          userKeyToOptOut = key
+          userKeyToOpt = key
           break
         }
       }
       
-      const newOptHistory = [ ...users[userKeyToOptOut].optHistory,`opt out: ${dateString}` ]
-
-      if(userKeyToOptOut) {
-        const optOutURL = `${DB_URL}/${userKeyToOptOut}.json`
-        const optOutResponse = await fetch(
-          optOutURL,
+      const newOptHistory = [ ...users[userKeyToOpt].optHistory,`
+        ${optOut
+          ? `opt out: ${dateString}` 
+          : `opt in: ${dateString}`
+        }`
+      ]
+      
+      if(userKeyToOpt) {
+        const optURL = `${DB_URL}/${userKeyToOpt}.json`
+        const optResponse = await fetch(
+          optURL,
           {
             method: 'PATCH',
             body: JSON.stringify({
-              optIn: false,
+              optIn: !optOut,
               updatedAt: dateString,
               optHistory: newOptHistory
             }),
@@ -112,7 +111,7 @@ const OptForm = ({ optOut }) => {
           }
         )
 
-      if (!optOutResponse.ok) {
+      if (!optResponse.ok) {
         throw new Error('Sorry, something went wrong..')
       }
 
@@ -125,75 +124,7 @@ const OptForm = ({ optOut }) => {
   }
 
   /*=====================================================
-    OPT-IN EXISTING USER
-  =====================================================*/
-  const handleOptInUser = async (e) => {
-    e.preventDefault()
-
-    if(!enteredEmailIsValid) return 
-
-    const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
-    // TODO: if user is already opt in, stop it
-
-    if(!userExists) {
-      alert('That email does not exist in our system')
-      handleEmailReset()
-      emailRef.current.focus()
-      return
-    } 
-
-    const date = new Date()
-    const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
-
-    try {
-      const response = await fetch(`${DB_URL}.json`)
-      const users = await response.json()
-
-      if (!response.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-
-      let userKeyToOptIn
-      for(const key in users) {
-        if(users[key].email === enteredEmail.trim().toLowerCase()) {
-          userKeyToOptIn = key
-          break
-        }
-      }
-
-      const newOptHistory = [ ...users[userKeyToOptIn].optHistory,`opt in: ${dateString}` ]
-
-      if(userKeyToOptIn) {
-        const optOutURL = `${DB_URL}/${userKeyToOptIn}.json`
-        const optInResponse = await fetch(
-          optOutURL,
-          {
-            method: 'PATCH',
-            body: JSON.stringify({
-              optIn: true,
-              updatedAt: dateString,
-              optHistory: newOptHistory
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-
-      if (!optInResponse.ok) {
-        throw new Error('Sorry, something went wrong..')
-      }
-
-      setShowSuccess(true)
-    }
-
-    } catch (err) {
-      setError(err.message || 'Sorry, something went wrong..');
-    }
-  }
-
-  /*=====================================================
-    TOGGLE VALID INPUT CLASSNAMES
+    TOGGLE VALID INPUT CLASSNAME
   =====================================================*/
   const emailInputClasses = emailInputHasError
     ? 'form-control invalid'
@@ -209,77 +140,55 @@ const OptForm = ({ optOut }) => {
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
       </header>
 
-      {isOptingOut && 
-        <form className='form' onSubmit={handleOptOutUser}>
-        {!showSuccess && (<>
-          <div className='input-group'>
-            <label className='label' htmlFor="email">Enter your email here to OPT-OUT of RRconnect</label>
-            <input 
-              type="email" 
-              id="email"
-              ref={emailRef}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
-              value={enteredEmail}
-              className={emailInputClasses} 
-            />
-            {emailInputHasError && (
-              <p className='error-text'>Please enter a valid email</p>
-            )}
-          </div>
-          <div className="input-group">
-            <input type="submit" value="opt out" id="submit" />
-          </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
-        </>)}
 
-        {showSuccess && (<>
-          <p className='success-text'>
-            You have been opt-out from RRconnect.
-          </p>
-          <p className='success-text'>
-            Come back any time and fill out the form to opt back in!
-          </p>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
-        </>)}
-      </form>}
+      <form className='form' onSubmit={handleOptUser}>
+      {!showSuccess && (<>
+        <div className='input-group'>
+          <label className='label' htmlFor="email">
+            {optOut 
+              ? 'Enter your email here to OPT OUT of RRconnect'
+              : 'Enter your email here to OPT IN to RRconnect'
+            }
+            
+          </label>
+          <input 
+            type="email" 
+            id="email"
+            ref={emailRef}
+            onChange={handleEmailChange}
+            onBlur={handleEmailBlur}
+            value={enteredEmail}
+            className={emailInputClasses} 
+          />
+          {emailInputHasError && (
+            <p className='error-text'>Please enter a valid email</p>
+          )}
+        </div>
+        <div className="input-group">
+          <input 
+            type="submit" 
+            value={optOut
+              ? 'opt out'
+              : 'opt in'
+            } 
+            id="submit" />
+        </div>
+      </>)}
 
-      {!isOptingOut && 
-        <form className='form' onSubmit={handleOptInUser}>
-        {!showSuccess && (<>
-          <div className='input-group'>
-            <label className='label' htmlFor="email">Enter your email here to Opt back IN to RRconnect</label>
-            <input 
-              type="email" 
-              id="email"
-              ref={emailRef}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
-              value={enteredEmail}
-              className={emailInputClasses} 
-            />
-            {emailInputHasError && (
-              <p className='error-text'>Please enter a valid email</p>
-            )}
-          </div>
-          <div className="input-group">
-            <input type="submit" value="opt in" id="submit" />
-          </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
+      {showSuccess && (<>
+        {optOut 
+          ? <p className='success-text'>You have been opt out of RR Connect</p>
+          : <>
+              <p className='success-text'>
+                You have been opt into RR Connect
+              </p>
+              <p className='success-text'>
+                Come back any time and fill out the form to opt back in!</p>
+            </>
+          }
         </>)}
-
-        {showSuccess && (<>
-          <p className='success-text'>
-            Thank you for opting-in to RRconnect.
-          </p>
-          <p className='success-text'>
-            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.
-          </p>
-          <p className='success-text'>
-            Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
-          </p>
-        </>)}
-      </form>}
+        <button type='button' className='success-text' onClick={onShowWelcomeForm}>&lt; back</button>
+      </form>
     </>
   )
 }
