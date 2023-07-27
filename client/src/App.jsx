@@ -2,16 +2,12 @@
 
   TODO:
 
-  - break forms into seperate components
   - make one function for opt in/ opt out user
-  - add fancy comments to the react files
-  - allow them to update their entries? edit mode?
-  - eventually use auth? passwords?
-
+  
   - create a stats page
   -- current opt in users
   -- users opt in this month
-  
+
 
 =====================================================*/
 
@@ -19,14 +15,57 @@ import { useState } from 'react'
 
 import Container from './components/UI/Container/Container'
 import WelcomeForm from './components/WelcomeForm/WelcomeForm'
+import OptForm from './components/OptForm/OptForm'
+import StatsPage from './components/StatsPage/StatsPage'
+
 
 function App() {
+  const [showWelcomeForm, setShowWelcomeForm] = useState(true)
+  const [showStatsPage, setShowStatsPage] = useState(false)
+  const [optForm, setOptForm] = useState({
+    show: false,
+    optOut: true
+  })
+
+  const handleShowWelcomeForm = () => {
+    setShowWelcomeForm(true)
+    setOptForm({ show: false, optOut: true })
+  }
+
+  const handleShowOptOutForm = () => {
+    setShowWelcomeForm(false)
+
+    setOptForm({
+      show: true,
+      optOut: true
+    })
+  }
+
+  const handleShowOptInForm = () => {
+    setShowWelcomeForm(false)
+
+    setOptForm({
+      show: true,
+      optOut: false
+    })
+  }
+
 
   return (
     <>
       <h1 className='main-header'>RR Connect App</h1>
       <Container>
-        <WelcomeForm />
+        {showWelcomeForm && <WelcomeForm 
+          onShowOptOutForm={handleShowOptOutForm}
+          onShowOptInForm={handleShowOptInForm} />
+        }
+
+        {optForm.show && <OptForm 
+        optOut={optForm.optOut} 
+        onShowWelcomeForm={handleShowWelcomeForm}
+        />}
+
+        {showStatsPage && <StatsPage />}
       </Container>
     </>
   )

@@ -3,12 +3,11 @@
   TODO:
 
   - create an rr firebase account for the prod backend
+  - use an rr smtp account to send the emails on prod
+  - make sure cron jobs fire from production server
   - ability to generate reports from given time frames or periodicly
     maybe in its own db table or something
   - handle empty hobbies and passions
-  - send one email to both people to auto connect them?
-  - add updated date + opt in or out in an array
-  - 'opt in on {date}, opt out on {date} - in array
 
 =====================================================*/
 
@@ -19,7 +18,7 @@
 =====================================================*/
 const express = require('express')
 const dotenv = require('dotenv').config()
-const nodemailer = require("nodemailer")
+const nodemailer = require('nodemailer')
 const cron = require('node-cron')
 const port = process.env.PORT || 5001
 
@@ -104,7 +103,8 @@ const updatePreviousConnections = async (user) => {
 const sendEmail = (recipientUserObj, partnerUserObj) => {
   const bodyText = `Thank you for opting-in to RRconnect. Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. YOUR CONNECTION: Name: ${partnerUserObj.name} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} Hobbies: ${partnerUserObj.joy} Passions: ${partnerUserObj.passions} Fun fact: ${partnerUserObj.funFact}`
   const bodyHtml = `
-    <h1>Thank you for opting-in to RRconnect.</h1>
+    <img src='https://rr-connect.netlify.app//assets/test-apples-eeb250cc.png' />
+    <h1 style="background:yellow;">Thank you for opting-in to RRconnect.</h1>
     <p>Below is the person you have been randomly assigned to connect with over the next two weeks.</p>
     <p>We suggest you reach out and schedule a Teams meeting or call to get to know one another.</p>
     <br></br>
@@ -118,9 +118,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       <li>Passions: ${partnerUserObj.passions}</li>
       <li>Fun fact: ${partnerUserObj.funFact}</li>
     </ul>
-    <h1>THIS IS FROM ROUND 4 OF TESTING</h1>
+    <h1>TESTING IMAGE EMBED (= </h1>
   `
-
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -226,7 +225,7 @@ const rrConnect = async () => {
 
 
       // SEND EMAILS WITH FALLBACK
-      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
@@ -302,12 +301,3 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule("*/59 * * * * *", ()=> rrConnect()) // runs every minute
-
-
-
-
-
-// TODO TUESDAY:
-// add a third arg to send email, for 'reason for fallback'
-// run the program manually one at a time, before implementing the cron job
-// only send the email after everyone received theirs first

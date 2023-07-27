@@ -1,22 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
 import useInput from '../../hooks/use-input'
-import testImage from '../../assets/test-apples.png'
 
 
-const WelcomeForm = () => {
+const WelcomeForm = (props) => {
   /*=====================================================
     COMPONENT STATES
   =====================================================*/
   const [users, setUsers] = useState([])
-  const [isOptingOut, setIsOptingOut] = useState(false)
-  const [isOptingIn, setIsOptingIn] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [error, setError] = useState(null);
 
   /*=====================================================
     VARIABLES
   =====================================================*/
-  const DB_URL = 'https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users.json'
+  const DB_URL = import.meta.env.VITE_DB_URL
   const emailRef = useRef()
   let formIsValid = false
 
@@ -26,7 +23,7 @@ const WelcomeForm = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(DB_URL)
+        const response = await fetch(`${DB_URL}.json`)
         const users = await response.json()
 
         if (!response.ok) {
@@ -162,7 +159,7 @@ const WelcomeForm = () => {
 
     try {
       const response = await fetch(
-        DB_URL,
+        `${DB_URL}.json`,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -221,7 +218,7 @@ const WelcomeForm = () => {
     const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
     
     try {
-      const response = await fetch(DB_URL)
+      const response = await fetch(`${DB_URL}.json`)
       const users = await response.json()
       
       if (!response.ok) {
@@ -239,7 +236,7 @@ const WelcomeForm = () => {
       const newOptHistory = [ ...users[userKeyToOptOut].optHistory,`opt out: ${dateString}` ]
 
       if(userKeyToOptOut) {
-        const optOutURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToOptOut}.json`
+        const optOutURL = `${DB_URL}/${userKeyToOptOut}.json`
         const optOutResponse = await fetch(
           optOutURL,
           {
@@ -289,7 +286,7 @@ const WelcomeForm = () => {
     const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
 
     try {
-      const response = await fetch(DB_URL)
+      const response = await fetch(`${DB_URL}.json`)
       const users = await response.json()
 
       if (!response.ok) {
@@ -307,7 +304,7 @@ const WelcomeForm = () => {
       const newOptHistory = [ ...users[userKeyToOptIn].optHistory,`opt in: ${dateString}` ]
 
       if(userKeyToOptIn) {
-        const optOutURL = `https://custom-http-hook-5f423-default-rtdb.firebaseio.com/rr-connect-users/${userKeyToOptIn}.json`
+        const optOutURL = `${DB_URL}/${userKeyToOptIn}.json`
         const optInResponse = await fetch(
           optOutURL,
           {
@@ -380,8 +377,7 @@ const WelcomeForm = () => {
         <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
       </header>
 
-      {!isOptingOut && !isOptingIn &&
-        <form className='form' onSubmit={handleSubmitNewUser}>
+      <form className='form' onSubmit={handleSubmitNewUser}>
         {!showSuccess && (<>
         <div className="form-row">
           <div className='input-group'>
@@ -477,13 +473,13 @@ const WelcomeForm = () => {
               <button
                 type='button'
                 className='radio-badge'
-                onClick={() => setIsOptingOut(true)}>
+                onClick={props.onShowOptOutForm}>
                   Opt Out
               </button>
               <button 
                 type='button'
                 className='radio-badge'
-                onClick={()=> setIsOptingIn(true)}>
+                onClick={props.onShowOptInForm}>
                   Opt In
                 </button>
             </div>
@@ -555,79 +551,7 @@ const WelcomeForm = () => {
             Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
           </p>
         </>)}
-      </form>}
-
-      {isOptingOut && 
-        <form className='form' onSubmit={handleOptOutUser}>
-        {!showSuccess && (<>
-          <div className='input-group'>
-            <label className='label' htmlFor="email">Enter your email here to OPT-OUT of RRconnect</label>
-            <input 
-              type="email" 
-              id="email"
-              ref={emailRef}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
-              value={enteredEmail}
-              className={emailInputClasses} 
-            />
-            {emailInputHasError && (
-              <p className='error-text'>Please enter a valid email</p>
-            )}
-          </div>
-          <div className="input-group">
-            <input type="submit" value="opt out" id="submit" />
-          </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
-        </>)}
-
-        {showSuccess && (<>
-          <p className='success-text'>
-            You have been opt-out from RRconnect.
-          </p>
-          <p className='success-text'>
-            Come back any time and fill out the form to opt back in!
-          </p>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
-        </>)}
-      </form>}
-
-      {isOptingIn && 
-        <form className='form' onSubmit={handleOptInUser}>
-        {!showSuccess && (<>
-          <div className='input-group'>
-            <label className='label' htmlFor="email">Enter your email here to Opt back IN to RRconnect</label>
-            <input 
-              type="email" 
-              id="email"
-              ref={emailRef}
-              onChange={handleEmailChange}
-              onBlur={handleEmailBlur}
-              value={enteredEmail}
-              className={emailInputClasses} 
-            />
-            {emailInputHasError && (
-              <p className='error-text'>Please enter a valid email</p>
-            )}
-          </div>
-          <div className="input-group">
-            <input type="submit" value="opt in" id="submit" />
-          </div>
-          <p className='success-text' onClick={() => {setIsOptingOut(false), setIsOptingIn(false), setShowSuccess(false)}}>&lt; back</p>
-        </>)}
-
-        {showSuccess && (<>
-          <p className='success-text'>
-            Thank you for opting-in to RRconnect.
-          </p>
-          <p className='success-text'>
-            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.
-          </p>
-          <p className='success-text'>
-            Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
-          </p>
-        </>)}
-      </form>}
+      </form>
     </>
   )
 }
