@@ -179,7 +179,7 @@ const rrConnect = async () => {
   }
 
   await fetchActiveUsers() 
-
+  console.log(`activeUsers: ${activeUsers}`)
   // dummyUsers.forEach(user => {
   //   if(user.optIn) {
   //     activeUsers.push(user)
@@ -225,8 +225,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -239,8 +239,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -252,8 +252,8 @@ const rrConnect = async () => {
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
     console.log(currentUser.name + ' and ' + partner.name)
-    sendEmail(currentUser, partner)
-    sendEmail(partner, currentUser)
+    // sendEmail(currentUser, partner)
+    // sendEmail(partner, currentUser)
 
 
     /*===================================================== 
@@ -279,8 +279,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS HERE
       console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
