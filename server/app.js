@@ -19,6 +19,7 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const nodemailer = require('nodemailer')
 const cron = require('node-cron')
+const fetch = require('node-fetch')
 const port = process.env.PORT || 5001
 
 const app = express()
