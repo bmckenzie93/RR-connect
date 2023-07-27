@@ -3,9 +3,10 @@
   TODO:
 
   - create an rr firebase account for the prod backend
+  - change environment variables after switching firebase accounts
   - use an rr smtp account to send the emails on prod
   - make sure cron jobs fire from production server
-  - handle empty hobbies and passions
+  - store and deploy from an rr github repo
 
 =====================================================*/
 
@@ -116,7 +117,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       <li>Passions: ${partnerUserObj.passions}</li>
       <li>Fun fact: ${partnerUserObj.funFact}</li>
     </ul>
-    <h1>TESTING IMAGE EMBED (= </h1>
+    <h1>TESTING CRON JOB FROM LOCAL DEV SERVER FIRST</h1>
   `
 
   const transporter = nodemailer.createTransport({
@@ -298,4 +299,4 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("*/59 * * * * *", ()=> rrConnect()) // runs every minute
+cron.schedule("* * * * *", ()=> rrConnect()) // runs every minute 
