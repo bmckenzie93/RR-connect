@@ -103,8 +103,7 @@ const updatePreviousConnections = async (user) => {
 const sendEmail = (recipientUserObj, partnerUserObj) => {
   const bodyText = `Thank you for opting-in to RRconnect. Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. YOUR CONNECTION: Name: ${partnerUserObj.name} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} Hobbies: ${partnerUserObj.joy} Passions: ${partnerUserObj.passions} Fun fact: ${partnerUserObj.funFact}`
   const bodyHtml = `
-    <img src='https://rr-connect.netlify.app//assets/test-apples-eeb250cc.png' />
-    <h1 style="background:yellow;">Thank you for opting-in to RRconnect.</h1>
+    <h1>Thank you for opting-in to RRconnect.</h1>
     <p>Below is the person you have been randomly assigned to connect with over the next two weeks.</p>
     <p>We suggest you reach out and schedule a Teams meeting or call to get to know one another.</p>
     <br></br>
@@ -118,7 +117,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       <li>Passions: ${partnerUserObj.passions}</li>
       <li>Fun fact: ${partnerUserObj.funFact}</li>
     </ul>
-    <h1>TESTING CRON JOB FROM LOCAL DEV SERVER FIRST</h1>
+    <h1>~PROD SERVER CRON JOB TEST~</h1>
   `
 
   const transporter = nodemailer.createTransport({
@@ -179,7 +178,6 @@ const rrConnect = async () => {
   }
 
   await fetchActiveUsers() 
-  console.log(`activeUsers: ${activeUsers}`)
   // dummyUsers.forEach(user => {
   //   if(user.optIn) {
   //     activeUsers.push(user)
@@ -225,8 +223,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
-      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -239,8 +237,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
-      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -252,8 +250,8 @@ const rrConnect = async () => {
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
     console.log(currentUser.name + ' and ' + partner.name)
-    // sendEmail(currentUser, partner)
-    // sendEmail(partner, currentUser)
+    sendEmail(currentUser, partner)
+    sendEmail(partner, currentUser)
 
 
     /*===================================================== 
@@ -279,8 +277,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS HERE
       console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
-      // sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      // sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
@@ -299,4 +297,4 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-cron.schedule("*/30 * * * * *", ()=> rrConnect()) // runs every 30 sec 
+cron.schedule("* * * * *", ()=> rrConnect()) // runs every 30 sec 
