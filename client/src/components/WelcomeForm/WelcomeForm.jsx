@@ -8,6 +8,7 @@ const WelcomeForm = (props) => {
   const [error, setError] = useState(null);
 
   const DB_URL = import.meta.env.VITE_DB_URL
+  console.log(DB_URL)
   const emailRef = useRef()
   let formIsValid = false
 
