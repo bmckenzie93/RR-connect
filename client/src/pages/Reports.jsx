@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Container from '../components/UI/Container/Container'
+import LoginForm from '../components/LoginForm/LoginForm'
 
 const Reports = () => {
   const [users, setUsers] = useState([])
@@ -32,14 +33,12 @@ const Reports = () => {
     })()
   },[])
 
-
+  
   /*=====================================================
     INSECURE PASSWORD FOR ILLUSION OF SECURITY
   =====================================================*/
-  const handleLogIn = (password) => {
-    if (password.trim().toLowerCase() === 'root') {
-      setIsLoggedIn(true)
-    }
+  const handleGrantPermission = () => {
+    setIsLoggedIn(true)
   }
 
 
@@ -56,9 +55,13 @@ const Reports = () => {
   return (<>
     <h1 className='main-header'>RR Connect Reports</h1>
     <Container>
-      <h2>Total number of users: {totalNumberOfUsers}</h2>
-      <h2>Total number of opt in users: {currentOptInUsers.length}</h2>
-      <ul></ul>
+      {!isLoggedIn && <LoginForm onGrantPermission={handleGrantPermission} />}
+
+      {isLoggedIn && (<>
+        <h2>Total number of users: {totalNumberOfUsers}</h2>
+        <h2>Total number of opt in users: {currentOptInUsers.length}</h2>
+        <ul></ul>
+      </>)}
     </Container>
   </>)
 }
