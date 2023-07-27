@@ -275,7 +275,7 @@ const WelcomeForm = (props) => {
 
         <div className="form-row">
           <div className='input-group'>
-            <label className='label' htmlFor="job">Job Title</label>
+            <label className='label' htmlFor="job">Job Title*</label>
             <input
               type="text" 
               id="job" 
@@ -290,7 +290,7 @@ const WelcomeForm = (props) => {
           </div>
 
           <div className='input-group'>
-            <label className='label' htmlFor="pillar">Pillar</label>
+            <label className='label' htmlFor="pillar">Pillar*</label>
             <select  
               id="pillar" 
               onChange={handlePillarChange}
