@@ -5,7 +5,6 @@
   - create an rr firebase account for the prod backend
   - change environment variables after switching firebase accounts
   - use an rr smtp account to send the emails on prod
-  - make sure cron jobs fire from production server
   - store and deploy from an rr github repo
 
 =====================================================*/
