@@ -76,7 +76,7 @@ button:hover { cursor: pointer; }
 =====================================================*/
 .form {
   border: 2px solid white;
-  padding: 2rem;
+  padding: 102px 91px;
   border-radius: 54px;
   margin-bottom: 4rem;
 }
@@ -84,7 +84,7 @@ button:hover { cursor: pointer; }
 .form-row {
   display: flex;
   justify-content: space-between;
-  column-gap: 2rem;
+  column-gap: 49px;
 }
 .form-row .input-group {
   width: 100%;
@@ -97,8 +97,22 @@ button:hover { cursor: pointer; }
 }
 
 .label {
+  font-size: 15px;
+  line-height: 50px;
+  letter-spacing: -0.7%;
   margin-bottom: .5rem;
+  position: relative;
+  text-transform: uppercase;
 }
+.label.required::after {
+  content: '*';
+  color: #FFE74F;
+  position: absolute;
+  padding-left: 6px;
+  top: 5px;
+  font-size: 25px;
+}
+
 .radio-badge {
   background-color: #fff;
   margin-right: 1rem;
@@ -121,7 +135,10 @@ input,
 select,
 textarea,
 .form-control {
-  padding: .5rem;
+  background-color: black;
+  border: none;
+  border-bottom: 1px solid white;
+
 }
 
 .form-control.invalid {

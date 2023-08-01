@@ -233,7 +233,7 @@ const WelcomeForm = (props) => {
       {!showSuccess && (<>
       <div className="form-row">
         <div className='input-group'>
-          <label className='label' htmlFor="name">Name*</label>
+          <label className='label required' htmlFor="name">Name</label>
           <input
             type="text" 
             id="name" 
@@ -248,7 +248,7 @@ const WelcomeForm = (props) => {
         </div>
 
         <div className='input-group'>
-          <label className='label' htmlFor="email">Work Email*</label>
+          <label className='label required' htmlFor="email">Email</label>
           <input 
             type="email" 
             id="email"
@@ -266,7 +266,7 @@ const WelcomeForm = (props) => {
 
       <div className="form-row">
         <div className='input-group'>
-          <label className='label' htmlFor="job">Job Title*</label>
+          <label className='label required' htmlFor="job">Job Title</label>
           <input
             type="text" 
             id="job" 
@@ -281,7 +281,7 @@ const WelcomeForm = (props) => {
         </div>
 
         <div className='input-group'>
-          <label className='label' htmlFor="pillar">Pillar*</label>
+          <label className='label required' htmlFor="pillar">Pillar</label>
           <select  
             id="pillar" 
             onChange={handlePillarChange}
@@ -304,7 +304,7 @@ const WelcomeForm = (props) => {
 
       <div className="form-row">
         <div className='input-group'>
-          <label className='label' htmlFor="location">Location</label>
+          <label className='label required' htmlFor="location">Location</label>
           <input
             type="text" 
             id="location" 
