@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Container from '../components/UI/Container/Container'
+import MainHeader from '../components/UI/MainHeader/MainHeader'
+import Hero from '../components/UI/Hero/Hero'
 import WelcomeForm from '../components/WelcomeForm/WelcomeForm'
 import OptForm from '../components/OptForm/OptForm'
 
@@ -35,9 +37,11 @@ const Home = () => {
   }
 
 
-  return (<>
-    <h1 className='main-header'>RR Connect App</h1>
+  return (
     <Container>
+      <MainHeader />
+      <Hero />
+      
       {showWelcomeForm && <WelcomeForm 
         onShowOptOutForm={handleShowOptOutForm}
         onShowOptInForm={handleShowOptInForm} />
@@ -48,7 +52,7 @@ const Home = () => {
       onShowWelcomeForm={handleShowWelcomeForm}
       />}
     </Container>
-  </>)
+  )
 }
 
 export default Home
