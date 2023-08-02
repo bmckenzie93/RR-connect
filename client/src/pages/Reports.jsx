@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Container from '../components/UI/Container/Container'
+import MainHeader from '../components/UI/MainHeader/MainHeader'
 import LoginForm from '../components/LoginForm/LoginForm'
 
 const Reports = () => {
@@ -52,9 +53,9 @@ const Reports = () => {
 
 
 
-  return (<>
-    <h1 className='main-header'>RR Connect Reports</h1>
+  return (
     <Container>
+      <MainHeader />
       {!isLoggedIn && <LoginForm onGrantPermission={handleGrantPermission} />}
 
       {isLoggedIn && (<>
@@ -63,7 +64,7 @@ const Reports = () => {
         <ul></ul>
       </>)}
     </Container>
-  </>)
+  )
 }
 
 export default Reports

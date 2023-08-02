@@ -94,6 +94,7 @@ button:hover { cursor: pointer; }
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .label {
@@ -138,17 +139,38 @@ textarea,
   background-color: black;
   border: none;
   border-bottom: 1px solid white;
+  color: white;
+  font-size: 25px;
+}
+input:focus,  
+select:focus,
+textarea:focus,
+.form-control:focus {
+  outline: 1px solid #FFE74F;
+  outline-offset: 1px;
+}
+input::placeholder,  
+select::placeholder,
+textarea::placeholder,
+.form-control::placeholder {
+  color: #757575;
+}
 
+select option:first-child {
+  color: red;
 }
 
 .form-control.invalid {
-  border: 1px solid red;
-  background-color: pink;
+  border-color: red;
+  color: pink;
 }
 
 .error-text {
   text-align: center;
   margin-top: .5rem;
+  position: absolute;
+  bottom: -50px;
+  color: red;
 }
 
 .success-text {

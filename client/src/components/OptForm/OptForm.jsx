@@ -47,7 +47,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
     handleValueChange: handleEmailChange,
     handleInputBlur: handleEmailBlur,
     handleResetInput: handleEmailReset
-  } = useInput(value => value.includes('@'))
+  } = useInput(value => value.includes('@rrpartners.com'))
 
   if(enteredEmailIsValid) { formIsValid = true }
 
@@ -161,7 +161,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
             className={emailInputClasses} 
           />
           {emailInputHasError && (
-            <p className='error-text'>Please enter a valid email</p>
+            <p className='error-text'>Please enter a valid R&R Partners email address</p>
           )}
         </div>
         <div className="input-group">

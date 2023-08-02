@@ -39,6 +39,11 @@ const WelcomeForm = (props) => {
   /*=====================================================
     INPUT STATES
   =====================================================*/
+  const [showPillarPlaceholder, setShowPillarPlaceholder] = useState(true)
+  const handlePillarPlaceholder = () => {
+    setShowPillarPlaceholder(false)
+  }
+
   const {
     value: enteredName,
     isValid: enteredNameIsValid,
@@ -55,7 +60,7 @@ const WelcomeForm = (props) => {
     handleValueChange: handleEmailChange,
     handleInputBlur: handleEmailBlur,
     handleResetInput: handleEmailReset
-  } = useInput(value => value.includes('@'))
+  } = useInput(value => value.includes('@rrpartners.com'))
 
   const {
     value: enteredLocation,
@@ -209,6 +214,9 @@ const WelcomeForm = (props) => {
     const pillarInputClasses = pillarInputHasError
     ? 'form-control invalid'
     : 'form-control'
+    const pillarStyle = showPillarPlaceholder
+    ? {color:'#757575'}
+    : {}
 
     const jobInputClasses = jobInputHasError
     ? 'form-control invalid'
@@ -226,7 +234,6 @@ const WelcomeForm = (props) => {
     ? 'form-control invalid'
     : 'form-control'
 
-
     
   return (
     <form className='form' onSubmit={handleSubmitNewUser}>
@@ -241,6 +248,7 @@ const WelcomeForm = (props) => {
             onBlur={handleNameBlur}
             value={enteredName} 
             className={nameInputClasses}
+            placeholder='First name Last name'
           />
           {nameInputHasError && (
             <p className='error-text'>Please enter a valid name</p>
@@ -257,9 +265,10 @@ const WelcomeForm = (props) => {
             onBlur={handleEmailBlur}
             value={enteredEmail}
             className={emailInputClasses} 
+            placeholder='R&R Email'
           />
           {emailInputHasError && (
-            <p className='error-text'>Please enter a valid email</p>
+            <p className='error-text'>Please enter a valid R&R Partners email address</p>
           )}
         </div>
       </div>
@@ -274,6 +283,7 @@ const WelcomeForm = (props) => {
             onBlur={handleJobBlur}
             value={enteredJob} 
             className={jobInputClasses} 
+            placeholder="What's on your card"
           />
           {jobInputHasError && (
             <p className='error-text'>Please enter a valid job title</p>
@@ -284,12 +294,14 @@ const WelcomeForm = (props) => {
           <label className='label required' htmlFor="pillar">Pillar</label>
           <select  
             id="pillar" 
+            onClick={handlePillarPlaceholder}
             onChange={handlePillarChange}
             onBlur={handlePillarBlur}
             defaultValue="none"
             className={pillarInputClasses} 
+            style={pillarStyle}
           >
-            <option disabled hidden value="none"></option>
+            <option disabled hidden value="none">Select Pillar</option>
             <option value="atlas">Atlas</option>
             <option value="wanderlust">Wanderlust</option>
             <option value="travel">Travel & tourism</option>
