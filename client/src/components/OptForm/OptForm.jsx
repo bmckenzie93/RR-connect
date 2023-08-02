@@ -132,22 +132,32 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
 
   return ( 
     <> 
-      <header className='header'>
-        <p>Thank you for opting-in to RRconnect.</p>
-        <p>(I dont think we should thank them yet, they might think they are already opt in when reading this paragraph and not fill out the form below. Maybe we should say 'fill in the form below to opt in'..)</p>
-        <p>Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.</p>
-        <p>Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.</p>
-        <p>Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.</p>
-      </header>
-
-
       <form className='form' onSubmit={handleOptUser}>
       {!showSuccess && (<>
+        <div className='form-hero'>
+          {isOptingOut && (<>
+            <h1>
+              Existing users can opt-out here.
+            </h1>
+            <p>
+              We are sorry to see you go. You can always opt-in again whenever you are ready, we would love to have you back!
+            </p>
+          </>)}
+          {!isOptingOut && (<>
+            <h1>
+              Existing users can opt back in here.
+            </h1>
+            <p>
+              Welcome back!
+            </p>
+          </>)}
+        </div>
+
         <div className='input-group'>
           <label className='label' htmlFor="email">
             {optOut 
-              ? 'Enter your email here to OPT OUT of RRconnect'
-              : 'Enter your email here to OPT IN to RRconnect'
+              ? 'Enter your email to opt-out'
+              : 'Enter your email to opt-in'
             }
             
           </label>
@@ -187,7 +197,9 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
             </>
           }
         </>)}
-        <button type='button' className='success-text' onClick={onShowWelcomeForm}>&lt; back</button>
+        <div className="input-group">
+          <button type='button' className='success-text' onClick={onShowWelcomeForm}>back</button>
+        </div>
       </form>
     </>
   )
