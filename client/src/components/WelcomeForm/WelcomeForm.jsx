@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import useInput from '../../hooks/use-input'
+import Hero from '../UI/Hero/Hero'
 
 
 const WelcomeForm = (props) => {
@@ -90,21 +91,12 @@ const WelcomeForm = (props) => {
   } = useInput(value => value.trim() !== '')
 
   const {
-    value: enteredHobbies,
-    isValid: enteredHobbiesIsValid,
-    hasError: hobbiesInputHasError,
-    handleValueChange: handleHobbiesChange,
-    handleInputBlur: handleHobbiesBlur,
-    handleResetInput: handleHobbiesReset
-  } = useInput(value => value.trim() !== '')
-
-  const {
-    value: enteredPassions,
-    isValid: enteredPassionsIsValid,
-    hasError: passionsInputHasError,
-    handleValueChange: handlePassionsChange,
-    handleInputBlur: handlePassionsBlur,
-    handleResetInput: handlePassionsReset
+    value: enteredAboutYou,
+    isValid: enteredAboutYouIsValid,
+    hasError: aboutYouInputHasError,
+    handleValueChange: handleAboutYouChange,
+    handleInputBlur: handleAboutYouBlur,
+    handleResetInput: handleAboutYouReset
   } = useInput(value => value.trim() !== '')
 
   const {
@@ -122,8 +114,7 @@ const WelcomeForm = (props) => {
     enteredLocationIsValid &&
     enteredPillarIsValid &&
     enteredJobIsValid &&
-    enteredHobbiesIsValid &&
-    enteredPassionsIsValid &&
+    enteredAboutYouIsValid &&
     enteredFunFactIsValid 
   ) { formIsValid = true }
 
@@ -139,8 +130,7 @@ const WelcomeForm = (props) => {
       !enteredLocationIsValid ||
       !enteredPillarIsValid ||
       !enteredJobIsValid ||
-      !enteredHobbiesIsValid ||
-      !enteredPassionsIsValid ||
+      !enteredAboutYouIsValid ||
       !enteredFunFactIsValid 
     ) { return }
 
@@ -167,8 +157,7 @@ const WelcomeForm = (props) => {
             location: enteredLocation.trim(),
             pillar: enteredPillar,
             job: enteredJob.trim(),
-            hobbies: enteredHobbies.trim(),
-            passions: enteredPassions.trim(),
+            aboutYou: enteredAboutYou.trim(),
             funFact: enteredFunFact.trim(),
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
@@ -222,178 +211,181 @@ const WelcomeForm = (props) => {
     ? 'form-control invalid'
     : 'form-control'
 
-    const hobbiesInputClasses = hobbiesInputHasError
-    ? 'form-control invalid'
-    : 'form-control'
+    // const aboutYouInputClasses = aboutYouInputHasError
+    // ? 'form-control invalid'
+    // : 'form-control'
 
-    const passionsInputClasses = passionsInputHasError
-    ? 'form-control invalid'
-    : 'form-control'
-
-    const funFactInputClasses = funFactInputHasError
-    ? 'form-control invalid'
-    : 'form-control'
+    // const funFactInputClasses = funFactInputHasError
+    // ? 'form-control invalid'
+    // : 'form-control'
 
     
   return (
     <form className='form' onSubmit={handleSubmitNewUser}>
       {!showSuccess && (<>
-      <div className="form-row">
-        <div className='input-group'>
-          <label className='label required' htmlFor="name">Name</label>
-          <input
-            type="text" 
-            id="name" 
-            onChange={handleNameChange}
-            onBlur={handleNameBlur}
-            value={enteredName} 
-            className={nameInputClasses}
-            placeholder='First name Last name'
-          />
-          {nameInputHasError && (
-            <p className='error-text'>Please enter a valid name</p>
-          )}
+        <div className='form-hero'>
+          <h1>
+            Thank you for opting-in to RRconnect.
+          </h1>
+          <p>
+            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat. Once the program begins, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
+          </p>
         </div>
 
-        <div className='input-group'>
-          <label className='label required' htmlFor="email">Email</label>
-          <input 
-            type="email" 
-            id="email"
-            ref={emailRef}
-            onChange={handleEmailChange}
-            onBlur={handleEmailBlur}
-            value={enteredEmail}
-            className={emailInputClasses} 
-            placeholder='R&R Email'
-          />
-          {emailInputHasError && (
-            <p className='error-text'>Please enter a valid R&R Partners email address</p>
-          )}
-        </div>
-      </div>
+        <div className="form-row">
+          <div className='input-group'>
+            <label className='label required' htmlFor="name">Name</label>
+            <input
+              type="text" 
+              id="name" 
+              onChange={handleNameChange}
+              onBlur={handleNameBlur}
+              value={enteredName} 
+              className={nameInputClasses}
+              placeholder='First name Last name'
+            />
+            {nameInputHasError && (
+              <p className='error-text'>Please enter a valid name</p>
+            )}
+          </div>
 
-      <div className="form-row">
-        <div className='input-group'>
-          <label className='label required' htmlFor="job">Job Title</label>
-          <input
-            type="text" 
-            id="job" 
-            onChange={handleJobChange}
-            onBlur={handleJobBlur}
-            value={enteredJob} 
-            className={jobInputClasses} 
-            placeholder="What's on your card"
-          />
-          {jobInputHasError && (
-            <p className='error-text'>Please enter a valid job title</p>
-          )}
-        </div>
-
-        <div className='input-group'>
-          <label className='label required' htmlFor="pillar">Pillar</label>
-          <select  
-            id="pillar" 
-            onClick={handlePillarPlaceholder}
-            onChange={handlePillarChange}
-            onBlur={handlePillarBlur}
-            defaultValue="none"
-            className={pillarInputClasses} 
-            style={pillarStyle}
-          >
-            <option disabled hidden value="none">Select Pillar</option>
-            <option value="atlas">Atlas</option>
-            <option value="wanderlust">Wanderlust</option>
-            <option value="travel">Travel & tourism</option>
-            <option value="travel">Technovation</option>
-            <option value="travel">Travel & tourism</option>
-          </select>
-          {pillarInputHasError && (
-            <p className='error-text'>Please select a pillar</p>
-          )}
-        </div>
-      </div>
-
-      <div className="form-row">
-        <div className='input-group'>
-          <label className='label required' htmlFor="location">Location</label>
-          <input
-            type="text" 
-            id="location" 
-            onChange={handleLocationChange}
-            onBlur={handleLocationBlur}
-            value={enteredLocation} 
-            className={locationInputClasses} 
-          />
-          {locationInputHasError && (
-            <p className='error-text'>Please enter a valid location</p>
-          )}
-        </div>
-
-        <div className='input-group'>
-          <p className='label'>EXISTING USERS can opt out and in here:</p>
-
-          <div className="radio-group">
-            <button
-              type='button'
-              className='radio-badge'
-              onClick={props.onShowOptOutForm}>
-                Opt Out
-            </button>
-            <button 
-              type='button'
-              className='radio-badge'
-              onClick={props.onShowOptInForm}>
-                Opt In
-              </button>
+          <div className='input-group'>
+            <label className='label required' htmlFor="email">Email</label>
+            <input 
+              type="email" 
+              id="email"
+              ref={emailRef}
+              onChange={handleEmailChange}
+              onBlur={handleEmailBlur}
+              value={enteredEmail}
+              className={emailInputClasses} 
+              placeholder='R&R Email'
+            />
+            {emailInputHasError && (
+              <p className='error-text'>Must be a valid R&R Partners email</p>
+            )}
           </div>
         </div>
-      </div>
 
-        <div className='input-group'>
-          <label className='label' htmlFor="hobbies">What are some of your hobbies?</label>
-          <textarea 
-            id="hobbies" 
-            cols="30" 
-            rows="10"
-            onChange={handleHobbiesChange}
-            onBlur={handleHobbiesBlur}
-            value={enteredHobbies} 
-            className={hobbiesInputClasses} 
-          ></textarea>
-          {hobbiesInputHasError && (
-            <p className='error-text'>Please enter some hobbies</p>
-          )}
+        <div className="form-row">
+          <div className='input-group'>
+            <label className='label required' htmlFor="job">Job Title</label>
+            <input
+              type="text" 
+              id="job" 
+              onChange={handleJobChange}
+              onBlur={handleJobBlur}
+              value={enteredJob} 
+              className={jobInputClasses} 
+              placeholder="What's on your card"
+            />
+            {jobInputHasError && (
+              <p className='error-text'>Please enter a valid job title</p>
+            )}
+          </div>
+
+          <div className='input-group'>
+            <label className='label required' htmlFor="pillar">Pillar</label>
+            <select  
+              id="pillar" 
+              onClick={handlePillarPlaceholder}
+              onChange={handlePillarChange}
+              onBlur={handlePillarBlur}
+              defaultValue="none"
+              className={pillarInputClasses} 
+              style={pillarStyle}
+            >
+              <option disabled hidden value="none">Select Pillar</option>
+              <option value="atlas">Atlas</option>
+              <option value="wanderlust">Wanderlust</option>
+              <option value="travel">Travel & tourism</option>
+              <option value="travel">Technovation</option>
+              <option value="travel">Travel & tourism</option>
+            </select>
+            {pillarInputHasError && (
+              <p className='error-text'>Please select a pillar</p>
+            )}
+          </div>
         </div>
 
+        <div className="form-row">
+          <div className='input-group'>
+            <label className='label required' htmlFor="location">Location</label>
+            <input
+              type="text" 
+              id="location" 
+              onChange={handleLocationChange}
+              onBlur={handleLocationBlur}
+              value={enteredLocation} 
+              className={locationInputClasses} 
+              placeholder='LV, NV'
+            />
+            {locationInputHasError && (
+              <p className='error-text'>Please enter a valid location</p>
+            )}
+          </div>
+
+          <div className='input-group'>
+            <p className='label'>existing users can opt out/in here</p>
+
+            <div className="button-group">
+              <button
+                type='button'
+                className='btn'
+                onClick={props.onShowOptOutForm}>
+                  Opt Out
+              </button>
+              <button 
+                type='button'
+                className='btn'
+                onClick={props.onShowOptInForm}>
+                  Opt In
+                </button>
+            </div>
+          </div>
+        </div>
+        
+        <p className='mid-form-text'>
+          Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.
+        </p>
+        <p className='field-description'>
+          What is something most people don't know about you? Each one of us has a unique story to tell, take this opportunity to share something surprising or intriguing about yourself that most people at R&R may not know. It could be a talent, an unusual experience, or a fascinating fact about your background.
+        </p>
+
         <div className='input-group'>
-          <label className='label' htmlFor="passions">What passions do you have?</label>
+          <label className='label' htmlFor="aboutYou">about you</label>
           <textarea
-          id="passions" 
-          onChange={handlePassionsChange}
-          onBlur={handlePassionsBlur}
-          value={enteredPassions} 
-          className={passionsInputClasses} 
+          id="aboutYou" 
+          onChange={handleAboutYouChange}
+          onBlur={handleAboutYouBlur}
+          value={enteredAboutYou} 
+          className='form-control' 
+          placeholder='Tell us here'
+          // className={aboutYouInputClasses} 
           ></textarea>
-        {passionsInputHasError && (
-          <p className='error-text'>Please enter some valid passions</p>
-        )}
+          {/* {aboutYouInputHasError && (
+            <p className='error-text'>Please enter some valid passions</p>
+          )} */}
         </div>
 
+        <p className='field-description'>
+          What hobbies or passions do you have? Beyond your work at R&R, we want to know more about the things that make you tick outside the office. Whether it's painting, playing a musical instrument, hiking, cooking, or any other hobby or passion, feel free to share what you love to do when you're not at work.
+        </p>
+
         <div className='input-group'>
-          <label className='label' htmlFor="funFact">What is something most people don't know about you?</label>
+          <label className='label' htmlFor="funFact">fun fact</label>
           <textarea
           id="funFact" 
-          cols="30" 
-          rows="10"
           onChange={handleFunFactChange}
           onBlur={handleFunFactBlur}
           value={enteredFunFact} 
-          className={funFactInputClasses} 
+          className='form-control' 
+          placeholder='Tell us here'
+          // className={funFactInputClasses}
           ></textarea>
-          {funFactInputHasError && (
+          {/* {funFactInputHasError && (
             <p className='error-text'>Please enter a valid Fun Fact</p>
-          )}
+          )} */}
         </div>
 
         <div className='input-group'>

@@ -19,15 +19,20 @@ body {
 }
 
 h1 { 
-  font-size: 73px; 
+  font-size: 34px; 
   font-weight: 700;
-  line-height: 79.5px;
-  margin-bottom: 80px;
+  line-height: 45px;
+  letter-spacing: -0.7%;
+  margin-bottom: 70px;
 }
 
 p {
-  margin-bottom: 1.5rem;
+  font-size: 25px; 
+  font-weight: 400;
+  line-height: 45px;
+  letter-spacing: -0.7%;
 }
+
 
 
 
@@ -41,7 +46,21 @@ p {
   padding: 0 2rem;
 }
 
-button:hover { cursor: pointer; }
+button {
+  border-radius: 62px;
+  padding: 10px 60px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  color: #757575;
+  transition: all .3s ease-in-out;
+  font-size: 25px;
+}
+button:hover { 
+  cursor: pointer; 
+  border-color: #FFE74F;
+  color: white;
+}
 
 
 
@@ -80,6 +99,18 @@ button:hover { cursor: pointer; }
   border-radius: 54px;
   margin-bottom: 4rem;
 }
+.form-hero p {
+  margin-bottom: 70px;
+}
+.mid-form-text {
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+.field-description {
+  color: #757575;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
 
 .form-row {
   display: flex;
@@ -114,26 +145,22 @@ button:hover { cursor: pointer; }
   font-size: 25px;
 }
 
-.radio-badge {
-  background-color: #fff;
-  margin-right: 1rem;
-  border-radius: 200px;
-  padding: 3px 6px;
-  width: 50%;
-  border: 1px solid #333;
-}
 
-.radio-group {
+
+
+.button-group {
   height: 100%;
   display: flex;
   align-items: center;
+  column-gap: 20px;
 }
-.radio-group label {
-  margin-right: 1rem;
+.button-group button {
+  flex: 1;
 }
 
 input,
 select,
+select option,
 textarea,
 .form-control {
   background-color: black;
@@ -141,6 +168,10 @@ textarea,
   border-bottom: 1px solid white;
   color: white;
   font-size: 25px;
+  line-height: 50px;
+  font-family: inherit;
+  height: 51px;
+  max-width: 100%;
 }
 input:focus,  
 select:focus,
@@ -148,6 +179,7 @@ textarea:focus,
 .form-control:focus {
   outline: 1px solid #FFE74F;
   outline-offset: 1px;
+  border: none;
 }
 input::placeholder,  
 select::placeholder,
@@ -155,9 +187,18 @@ textarea::placeholder,
 .form-control::placeholder {
   color: #757575;
 }
+select:hover { cursor: pointer; }
 
-select option:first-child {
-  color: red;
+input[type="submit"] {
+  background-color: white;
+  border-radius: 62px;
+  padding: 20px 60px;
+  width: 415px;
+  color: black;
+  height: unset;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 100px auto 0;
 }
 
 .form-control.invalid {
@@ -169,8 +210,9 @@ select option:first-child {
   text-align: center;
   margin-top: .5rem;
   position: absolute;
-  bottom: -50px;
+  bottom: -35px;
   color: red;
+  font-size: 16px;
 }
 
 .success-text {

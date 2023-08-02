@@ -40,7 +40,6 @@ const Home = () => {
   return (
     <Container>
       <MainHeader />
-      <Hero />
       
       {showWelcomeForm && <WelcomeForm 
         onShowOptOutForm={handleShowOptOutForm}
