@@ -326,7 +326,7 @@ const WelcomeForm = (props) => {
           </div>
 
           <div className='input-group'>
-            <p className='label'>existing users can opt out/in here</p>
+            <p className='label'>existing users can opt out & in here</p>
 
             <div className="button-group">
               <button
