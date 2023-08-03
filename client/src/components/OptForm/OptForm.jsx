@@ -192,7 +192,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
           }
         </>)}
         <div className="input-group">
-          <button type='button' className='success-text' onClick={onShowWelcomeForm}>back</button>
+          <button type='button' className='success-text' style={{marginTop:'20px'}} onClick={onShowWelcomeForm}>back</button>
         </div>
       </form>
     </>
