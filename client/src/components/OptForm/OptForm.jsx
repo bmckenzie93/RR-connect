@@ -187,14 +187,8 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
 
       {showSuccess && (<>
         {optOut 
-          ? <p className='success-text'>You have been opt out of RR Connect</p>
-          : <>
-              <p className='success-text'>
-                You have been opt into RR Connect
-              </p>
-              <p className='success-text'>
-                Come back any time and fill out the form to opt back in!</p>
-            </>
+          ? <p className='success-text'>You have been opt-out of RR Connect</p>
+          : <p className='success-text'>You have been opt-in to RR Connect</p>
           }
         </>)}
         <div className="input-group">
