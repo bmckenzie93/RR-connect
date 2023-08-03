@@ -2,7 +2,6 @@
 
   TODO:
 
-  - polish the style
   - handle empty hobbies and passions
   - confirm required fields & minimum length
 

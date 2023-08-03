@@ -235,6 +235,10 @@ textarea::placeholder,
   color: #757575;
 }
 select:hover { cursor: pointer; }
+textarea { 
+  min-width: 100%; 
+  min-height: 36px;
+}
 input[type="submit"] {
   background-color: white;
   border: 1px solid white;
