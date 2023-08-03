@@ -1,4 +1,4 @@
-import logo from '../../../assets/rr-connect.png'
+import logo from '../../../assets/rr-connect.svg'
 
 const MainHeader = () => {
   return (
