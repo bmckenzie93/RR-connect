@@ -120,7 +120,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       <li>Passions: ${partnerUserObj.passions}</li>
       <li>Fun fact: ${partnerUserObj.funFact}</li>
     </ul>
-    <h1>~PROD SERVER CRON JOB TEST~</h1>
+    <h1>~testing from internal ubuntu~</h1>
   `
 
   const transporter = nodemailer.createTransport({
@@ -299,7 +299,7 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule("0 * * * *", ()=> rrConnect())
-cron.schedule( "55,57,1 * * * *", ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'}, {name: 'ubuntu test'}) )
+cron.schedule( "2,5,6,7 * * * *", ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'}, {name: 'ubuntu test'}) )
 
 // sendEmail({
 //   //recipeant
