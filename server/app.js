@@ -3,9 +3,13 @@
   TODO:
 
   - create an rr firebase account for the prod backend
+  - show non required fields contitionally in email
   - change environment variables after switching firebase accounts
-  - use an rr smtp account to send the emails on prod
+  - ditch render to use an rr smtp account to send the emails on prod
   - store and deploy from an rr github repo
+  - maybe show list of all users in the reports with the ability to delete bad ones
+  - plug in official cron-job schedule
+  - style email blast and scheduled emails
 
 =====================================================*/
 
@@ -294,4 +298,20 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("* * * * *", ()=> rrConnect())
+// cron.schedule("0 * * * *", ()=> rrConnect())
+cron.schedule("50 * * * *", sendEmail({
+//recipeant
+  email: 'brandon.mckenzie@rrpartners.com'
+
+},{
+//partner info
+  name: 'ubuntu test'
+}))
+
+// sendEmail({
+//   //recipeant
+//     email: 'brandon.mckenzie@rrpartners.com'
+//   },{
+//   //partner info
+//     name: 'ubuntu test'
+//   })
