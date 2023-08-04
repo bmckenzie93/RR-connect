@@ -299,14 +299,7 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule("0 * * * *", ()=> rrConnect())
-cron.schedule("40,41 * * * *", sendEmail({
-//recipeant
-  email: 'brandon.mckenzie@rrpartners.com'
-
-},{
-//partner info
-  name: 'ubuntu test'
-}))
+cron.schedule( "40,41 * * * *", ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'}, {name: 'ubuntu test'}) )
 
 // sendEmail({
 //   //recipeant
