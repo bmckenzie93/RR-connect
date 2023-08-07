@@ -113,30 +113,19 @@ button:hover {
   MAIN HEADER
 =====================================================*/
 .main-header {
-  padding: 143px 0 0;
-  margin-bottom: 96px;
+  padding: 16px 0 0;
+  margin-bottom: 66px;
+  text-align: center;
 }
 .main-header img {
   max-width: 369px;
   height: auto;
-}
-@media( max-width: 1180px ) {
-  /*=====================================================
-  MAIN HEADER: TABLET
-  =====================================================*/
-  .main-header {
-    margin-bottom: 60px;
-  }
-  .main-header img {
-    max-width: 280px;
-  }
 }
 @media( max-width: 870px ) {
   /*=====================================================
   MAIN HEADER: MOBILE
   =====================================================*/
   .main-header {
-    padding: 80px 0 0;
     margin-bottom: 40px;
   }
   .main-header img {
@@ -163,6 +152,7 @@ button:hover {
   margin-bottom: 40px;
 }
 .field-description {
+  line-height: 27px;
   color: #757575;
   font-size: 18px;
   margin-bottom: 30px;

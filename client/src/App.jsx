@@ -3,7 +3,6 @@
   TODO:
 
   - stop multiple opt out/in calls in a row
-  - 
 
 =====================================================*/
 import { Routes, Route } from 'react-router-dom'
