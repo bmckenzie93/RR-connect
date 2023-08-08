@@ -103,17 +103,6 @@ const updatePreviousConnections = async (user) => {
   SEND EMAIL FUNCTION
 =====================================================*/
 const sendEmail = (recipientUserObj, partnerUserObj) => {
-  let aboutYou = ''
-  let funFact = ''
-
-  if(partnerUserObj.aboutYou.length !== '') {
-    aboutYou = partnerUserObj.aboutYou
-  }
-  if(partnerUserObj.funFact !== '') {
-    funFact = partnerUserObj.funFact
-  }
-
-
   const bodyText = `Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}`
   const bodyHtml = `
     <table style="background:black; color:white; width: 100vw; height: 100vh;">
@@ -160,8 +149,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     port: process.env.EMAIL_PORT,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD
+      user: '',
+      pass: ''
     }
   });  
   
