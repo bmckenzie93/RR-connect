@@ -2,14 +2,13 @@
 
   TODO:
 
-  - create an rr firebase account for the prod backend
   - show non required fields contitionally in email
-  - change environment variables after switching firebase accounts
-  - ditch render to use an rr smtp account to send the emails on prod
+  - change environment variables after switching firebase accounts on netlify
   - store and deploy from an rr github repo
   - maybe show list of all users in the reports with the ability to delete bad ones
   - plug in official cron-job schedule
   - style email blast and scheduled emails
+  - establish a real fallback user
 
 =====================================================*/
 
@@ -104,23 +103,56 @@ const updatePreviousConnections = async (user) => {
   SEND EMAIL FUNCTION
 =====================================================*/
 const sendEmail = (recipientUserObj, partnerUserObj) => {
-  const bodyText = `Thank you for opting-in to RRconnect. Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. YOUR CONNECTION: Name: ${partnerUserObj.name} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} Hobbies: ${partnerUserObj.joy} Passions: ${partnerUserObj.passions} Fun fact: ${partnerUserObj.funFact}`
+  let aboutYou = ''
+  let funFact = ''
+
+  if(partnerUserObj.aboutYou.length !== '') {
+    aboutYou = partnerUserObj.aboutYou
+  }
+  if(partnerUserObj.funFact !== '') {
+    funFact = partnerUserObj.funFact
+  }
+
+
+  const bodyText = `Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}`
   const bodyHtml = `
-    <h1>Thank you for opting-in to RRconnect.</h1>
-    <p>Below is the person you have been randomly assigned to connect with over the next two weeks.</p>
-    <p>We suggest you reach out and schedule a Teams meeting or call to get to know one another.</p>
-    <br></br>
-    <h2>Your Connection:</h2>
-    <ul>
-      <li>Name: ${partnerUserObj.name}</li>
-      <li>Location: ${partnerUserObj.location}</li>
-      <li>Pillar: ${partnerUserObj.pillar}</li>
-      <li>Job Title: ${partnerUserObj.job}</li>
-      <li>Hobbies: ${partnerUserObj.hobbies}</li>
-      <li>Passions: ${partnerUserObj.passions}</li>
-      <li>Fun fact: ${partnerUserObj.funFact}</li>
-    </ul>
-    <h1>~testing from internal ubuntu~</h1>
+    <table style="background:black; color:white; width: 100vw; height: 100vh;">
+      <tr>
+        <td>
+          <img src="../client/src/assets/rr-connect.svg">
+        </td>
+      </tr>
+
+      <tr style="padding: 0 20px;">
+        <td>
+          <h1>
+            <b>
+              Thank you for opting-in to<br>RRconnect.
+            </b>
+            </h1>
+        </td>
+      </tr>
+      
+      <tr style="padding: 0 20px;">
+        <td>
+          <b>Your connection:</b>
+        </td>
+      </tr>
+
+      <tr style="padding: 0 20px;">
+        <td>
+          <ul>
+            <li>Name: ${partnerUserObj.name}</li>
+            <li>Email: ${partnerUserObj.email}</li>
+            <li>Job Title: ${partnerUserObj.job}</li>
+            <li>Pillar: ${partnerUserObj.pillar}</li>
+            <li>Location: ${partnerUserObj.location}</li>
+            ${partnerUserObj.aboutYou !== '' && `<li>About Them: ${partnerUserObj.aboutYou}</li>`}
+            ${partnerUserObj.funFact !== '' && `<li>Fun Fact: ${partnerUserObj.funFact}</li>`}
+          </ul>
+        </td>
+      </tr>
+    </table>
   `
 
   const transporter = nodemailer.createTransport({
@@ -279,7 +311,7 @@ const rrConnect = async () => {
       const currentUser = userQueue[0]
 
       // SEND EMAILS HERE
-      console.log(currentUser.name + ' ?ALT CASE LEFT OVER? ' + fallbackUserForOddNumberOfUsers.name) 
+      console.log(currentUser.name + ' ALT CASE LEFT OVER, SO GETS ' + fallbackUserForOddNumberOfUsers.name) 
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -299,12 +331,3 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule("0 * * * *", ()=> rrConnect())
-cron.schedule( "20,21,22 * * * *", ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'}, {name: 'ubuntu test'}) )
-
-// sendEmail({
-//   //recipeant
-//     email: 'brandon.mckenzie@rrpartners.com'
-//   },{
-//   //partner info
-//     name: 'ubuntu test'
-//   })
