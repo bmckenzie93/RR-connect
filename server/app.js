@@ -211,8 +211,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     port: process.env.EMAIL_PORT,
     secure: false,
     auth: {
-      user: 'brandonm',
-      pass: '!important2C#@!'
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
     }
   });  
   
