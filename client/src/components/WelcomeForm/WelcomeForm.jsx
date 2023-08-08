@@ -112,9 +112,7 @@ const WelcomeForm = (props) => {
     enteredEmailIsValid &&
     enteredLocationIsValid &&
     enteredPillarIsValid &&
-    enteredJobIsValid &&
-    enteredAboutYouIsValid &&
-    enteredFunFactIsValid 
+    enteredJobIsValid 
   ) { formIsValid = true }
 
   /*=====================================================
@@ -128,9 +126,7 @@ const WelcomeForm = (props) => {
       !enteredEmailIsValid ||
       !enteredLocationIsValid ||
       !enteredPillarIsValid ||
-      !enteredJobIsValid ||
-      !enteredAboutYouIsValid ||
-      !enteredFunFactIsValid 
+      !enteredJobIsValid 
     ) { return }
 
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
