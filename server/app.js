@@ -119,7 +119,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     <table style="background:black; color:white; width: 100vw; height: 100vh;">
       <tr>
         <td>
-          <img src="../client/src/assets/rr-connect.svg">
+          <img src="https://rr-connect.netlify.app/assets/rr-connect-d33be0ef.svg">
         </td>
       </tr>
 
@@ -147,8 +147,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
             <li>Job Title: ${partnerUserObj.job}</li>
             <li>Pillar: ${partnerUserObj.pillar}</li>
             <li>Location: ${partnerUserObj.location}</li>
-            ${partnerUserObj.aboutYou !== '' && `<li>About Them: ${partnerUserObj.aboutYou}</li>`}
-            ${partnerUserObj.funFact !== '' && `<li>Fun Fact: ${partnerUserObj.funFact}</li>`}
+            <li>About: ${partnerUserObj.aboutYou}</li>
+            <li>Fun Fact: ${partnerUserObj.funFact}</li>
           </ul>
         </td>
       </tr>
@@ -331,3 +331,4 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule("0 * * * *", ()=> rrConnect())
+rrConnect()

@@ -140,6 +140,7 @@ const WelcomeForm = (props) => {
 
     const date = new Date()
     const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
+
     let aboutYou = '...'
     let funFact = '...'
     if(enteredAboutYou.trim() !== '') {
@@ -148,9 +149,7 @@ const WelcomeForm = (props) => {
     if(enteredFunFact.trim() !== '') {
       funFact = enteredFunFact.trim()
     }
-    
-    console.log(aboutYou)
-    console.log(funFact)
+
     try {
       const response = await fetch(
         `${DB_URL}.json`,
@@ -162,8 +161,8 @@ const WelcomeForm = (props) => {
             location: enteredLocation.trim(),
             pillar: enteredPillar,
             job: enteredJob.trim(),
-            aboutYou: aboutYou,
-            funFact: funFact,
+            aboutYou,
+            funFact,
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: dateString,
