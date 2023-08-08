@@ -212,7 +212,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     secure: false,
     auth: {
       user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD
+      pass: '!important2C#@!'
     }
   });  
   
