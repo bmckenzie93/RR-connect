@@ -152,7 +152,9 @@ const WelcomeForm = (props) => {
     if(enteredFunFact.trim() !== '') {
       funFact = enteredFunFact.trim()
     }
-
+    
+    console.log(aboutYou)
+    console.log(funFact)
     try {
       const response = await fetch(
         `${DB_URL}.json`,
@@ -164,8 +166,8 @@ const WelcomeForm = (props) => {
             location: enteredLocation.trim(),
             pillar: enteredPillar,
             job: enteredJob.trim(),
-            aboutYou,
-            funFact,
+            aboutYou: aboutYou,
+            funFact: funFact,
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: dateString,
