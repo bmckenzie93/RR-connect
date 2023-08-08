@@ -169,7 +169,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
             <tr>
               <td>
 
-              <h1>THIS IS A TEST, THANK YOU!</h1>
+              <h1>THIS IS ANOTHER TEST, THANK YOU AGAIN!</h1>
 
 
 
@@ -219,7 +219,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 
   async function main() {
     const info = await transporter.sendMail({
-      from: `"RR Connect" <brandon.mckenzie@rrpartners.com>`,
+      from: `"RR Connect" <noreply@rrpartners.com>`,
       to: recipientUserObj.email,
       subject: "TEST: RR Connect",
       text: bodyText,
