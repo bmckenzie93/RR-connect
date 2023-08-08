@@ -211,15 +211,15 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     port: process.env.EMAIL_PORT,
     secure: false,
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: '!important2C#@!'
+      user: 'brandonm',
+      pass: 'I have my network password here'
     }
   });  
   
 
   async function main() {
     const info = await transporter.sendMail({
-      from: `"RR Connect" <brandon.mckenzie@rrconnect.com>`,
+      from: `"RR Connect" <brandon.mckenzie@rrpartners.com>`,
       to: recipientUserObj.email,
       subject: "TEST: RR Connect",
       text: bodyText,
