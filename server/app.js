@@ -210,10 +210,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     secure: false,
-  
-    tls: {
-      ciphers:'SSLv3'
-    }
+
   });  
   
 
