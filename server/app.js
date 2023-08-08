@@ -151,15 +151,18 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     auth: {
       user: '',
       pass: ''
+    },
+    tls: {
+      ciphers:'SSLv3'
     }
   });  
   
 
   async function main() {
     const info = await transporter.sendMail({
-      from: `"RR Connect Test" <no-reply@rrconnect.com>`,
+      from: `"RR Connect" <noreply@rrconnect.com>`,
       to: recipientUserObj.email,
-      subject: "RR Connect Test",
+      subject: "RR Connect",
       text: bodyText,
       html: bodyHtml, 
     });
