@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import useInput from '../../hooks/use-input'
-import Hero from '../UI/Hero/Hero'
 
 
 const WelcomeForm = (props) => {
@@ -228,7 +227,7 @@ const WelcomeForm = (props) => {
             Thank you for opting-in to RRconnect.
           </h1>
           <p>
-            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat. Once the program begins, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
+            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat. Everyone who opts-in will receive $15 of Recognize points once the revamped Recognize Rewards store is open.  
           </p>
         </div>
 
@@ -325,22 +324,7 @@ const WelcomeForm = (props) => {
           </div>
 
           <div className='input-group'>
-            <p className='label'>existing users can opt out & in here</p>
-
-            <div className="button-group">
-              <button
-                type='button'
-                className='btn'
-                onClick={props.onShowOptOutForm}>
-                  Opt Out
-              </button>
-              <button 
-                type='button'
-                className='btn'
-                onClick={props.onShowOptInForm}>
-                  Opt In
-                </button>
-            </div>
+            {/* empty placeholder */}
           </div>
         </div>
         
@@ -393,6 +377,26 @@ const WelcomeForm = (props) => {
           )}
           <input type="submit" value="submit" id="submit" />
         </div>
+
+        <div className='input-group'>
+          <p className='label' style={{textAlign:'center'}}>Have you previously signed up for RRConnect and want to opt-out?</p>
+          <button
+            type='button'
+            className='btn'
+            onClick={props.onShowOptOutForm}>
+              Opt Out
+          </button>
+        </div>
+
+        <div className='input-group'>
+          <p className='label' style={{textAlign:'center'}}>Have you previously opted out and want to opt back in?</p>
+          <button 
+            type='button'
+            className='btn'
+            onClick={props.onShowOptInForm}>
+              Opt In
+          </button>
+        </div>
       </>)}
 
       {showSuccess && (<>
@@ -403,7 +407,7 @@ const WelcomeForm = (props) => {
           Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat.
         </p>
         <p className='success-text'>
-          Once the program beings, you will receive $15 of Recognize points to use in the revamped Recognize Rewards store.
+          Everyone who opts-in will receive $15 of Recognize points once the revamped Recognize Rewards store is open.  
         </p>
       </>)}
     </form>
