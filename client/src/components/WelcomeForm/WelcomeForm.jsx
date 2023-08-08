@@ -136,7 +136,7 @@ const WelcomeForm = (props) => {
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
 
     if(userExists) {
-      alert('this email is already in the db')
+      alert('This email is already in the database')
       handleEmailReset()
       emailRef.current.focus()
       return
@@ -144,6 +144,14 @@ const WelcomeForm = (props) => {
 
     const date = new Date()
     const dateString = date.toLocaleString('en-US', { timeZone: 'UTC' })
+    let aboutYou = '...'
+    let funFact = '...'
+    if(enteredAboutYou.trim() !== '') {
+      aboutYou = enteredAboutYou.trim()
+    }
+    if(enteredFunFact.trim() !== '') {
+      funFact = enteredFunFact.trim()
+    }
 
     try {
       const response = await fetch(
@@ -156,8 +164,8 @@ const WelcomeForm = (props) => {
             location: enteredLocation.trim(),
             pillar: enteredPillar,
             job: enteredJob.trim(),
-            aboutYou: enteredAboutYou.trim() > 0 ? enteredAboutYou.trim() : '...',
-            funFact: enteredFunFact.trim() > 0 ? enteredFunFact.trim() : '...',
+            aboutYou,
+            funFact,
             optIn: true,
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: dateString,
