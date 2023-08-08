@@ -150,7 +150,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     secure: false,
     service: "Outlook365",
     auth: {
-      user: '',
+      user: 'anonymous',
       pass: ''
     },    
     tls: {
