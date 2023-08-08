@@ -147,7 +147,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: false,
+    secure: true,
     auth: {
       user: '',
       pass: ''
