@@ -2,13 +2,10 @@
 
   TODO:
 
-  - show non required fields contitionally in email
-  - change environment variables after switching firebase accounts on netlify
-  - store and deploy from an rr github repo
-  - maybe show list of all users in the reports with the ability to delete bad ones
-  - plug in official cron-job schedule
-  - style email blast and scheduled emails
-  - establish a real fallback user
+  - deploy from rr github repo on netlify
+    (change environment variables in netlify after switching repo)
+
+  - use internal smtp 
 
 =====================================================*/
 
@@ -36,14 +33,13 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 const DB_URL = process.env.DB_URL
 const dummyUsers = require('./DUMMY_USERS/dummyUsers')
 const fallbackUserForOddNumberOfUsers = {
-  name: 'FALLBACK VOLUNTEER',
-  email: 'brandon.mckenzie@rrpartners.com',
-  job: 'FALLBACK',
+  name: 'Chris Bell',
+  email: 'chris.bell@rrpartners.com',
+  job: 'Office Manager',
   pillar: 'atlas',
-  location: 'FB',
-  hobbies: 'falling back',
-  passions: 'fall and backs',
-  funFact: 'fell back',
+  location: 'SLC, UT',
+  aboutYou: 'I was a TV director in San Francisco for years before moving to Utah.',
+  funFact: 'I love camping and being in nature. If I go on vacation, it better be near water.',
   optIn: true,
   previousConnections: [],
   createdAt: '',
@@ -105,53 +101,113 @@ const updatePreviousConnections = async (user) => {
 const sendEmail = (recipientUserObj, partnerUserObj) => {
   const bodyText = `Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}`
   const bodyHtml = `
-    <table style="background:black; color:white; width: 100vw; height: 100vh;">
-      <tr>
-        <td>
-          <img src="https://rr-connect.netlify.app/assets/rr-connect-d33be0ef.svg">
-        </td>
-      </tr>
-
-      <tr style="padding: 0 20px;">
-        <td>
-          <h1>
-            <b>
-              Thank you for opting-in to<br>RRconnect.
-            </b>
-            </h1>
-        </td>
-      </tr>
+    <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <title></title>
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: black;
+            color: white;
+            min-height: 100vh;
+            max-width: 600px;
+            font-size: 14px;
+          }
+          .img-container {
+            max-width: 600px;
+            border: 1px solid white;
+            padding: 30px 0;
+            width: 100vw;
+            text-align: center;
+          }
+          img {
+            display: block;
+            width: 100%;
+            max-width: 175px;
+            margin: 0 auto;
+          }
+          h1 {
+            margin-top: 50px;
+            font-size: 30px;
+          }
+          ol {
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+          }
+          li {
+            margin: 0 0 6px 0;
+            padding: 0;
+          }
+        </style>
+      </head>
+      <body>
+          <table>
+            <tr>
+              <td class="img-container">
+                <img src="https://rr-connect.netlify.app/assets/rr-connect-d33be0ef.svg">
+              </td>
+            </tr>
       
-      <tr style="padding: 0 20px;">
-        <td>
-          <b>Your connection:</b>
-        </td>
-      </tr>
-
-      <tr style="padding: 0 20px;">
-        <td>
-          <ul>
-            <li>Name: ${partnerUserObj.name}</li>
-            <li>Email: ${partnerUserObj.email}</li>
-            <li>Job Title: ${partnerUserObj.job}</li>
-            <li>Pillar: ${partnerUserObj.pillar}</li>
-            <li>Location: ${partnerUserObj.location}</li>
-            <li>About: ${partnerUserObj.aboutYou}</li>
-            <li>Fun Fact: ${partnerUserObj.funFact}</li>
-          </ul>
-        </td>
-      </tr>
-    </table>
+            <tr>
+              <td>
+                <h1>
+                  <b>
+                    Thank you for opting-in to<br>RRconnect.
+                  </b>
+                  </h1>
+              </td>
+            </tr>
+            
+            <tr>
+              <td style="padding-bottom: 30px;">
+                <b>Your connection:</b>
+              </td>
+            </tr>
+            <tr>&nbsp;</tr>
+      
+            <tr>
+              <td>
+                <ol>
+                  <li>Name: ${partnerUserObj.name}</li>
+                  <li>Email: <a style="color: #FFE74F;" href="mailto:${partnerUserObj.email}">${partnerUserObj.email}</a></li>
+                  <li>Job Title: ${partnerUserObj.job}</li>
+                  <li>Pillar: ${partnerUserObj.pillar}</li>
+                  <li>Location: ${partnerUserObj.location}</li>
+                  <li>About: ${partnerUserObj.aboutYou}</li>
+                  <li>Fun Fact: ${partnerUserObj.funFact}</li>
+                </ol>
+              </td>
+            </tr>
+          </table>
+      </body>
+    </html>
   `
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     secure: false,
-    service: "Outlook365",
     auth: {
-      user: 'anonymous',
-      pass: ''
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
     },    
     tls: {
       ciphers:'SSLv3'
@@ -163,7 +219,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     const info = await transporter.sendMail({
       from: `"RR Connect" <noreply@rrconnect.com>`,
       to: recipientUserObj.email,
-      subject: "RR Connect",
+      subject: "TEST: RR Connect",
       text: bodyText,
       html: bodyHtml, 
     });
@@ -304,7 +360,7 @@ const rrConnect = async () => {
       const currentUser = userQueue[0]
 
       // SEND EMAILS HERE
-      console.log(currentUser.name + ' ALT CASE LEFT OVER, SO GETS ' + fallbackUserForOddNumberOfUsers.name) 
+      console.log(currentUser.name + ' HAS ALT LEFT OVER CASE, SO GETS ' + fallbackUserForOddNumberOfUsers.name) 
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -323,5 +379,6 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule("0 * * * *", ()=> rrConnect())
-rrConnect()
+// cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
+// rrConnect()
+sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
