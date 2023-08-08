@@ -212,7 +212,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     secure: false,
     auth: {
       user: 'brandonm',
-      pass: 'I have my network password here'
+      pass: '!important2C#@!'
     }
   });  
   
