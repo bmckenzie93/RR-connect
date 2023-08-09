@@ -191,7 +191,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
           : <p className='success-text'>You have been opt-in to RR Connect</p>
           }
         </>)}
-        <div className="input-group">
+        <div className="input-group full">
           <button type='button' className='success-text' style={{marginTop:'20px'}} onClick={onShowWelcomeForm}>back</button>
         </div>
       </form>
