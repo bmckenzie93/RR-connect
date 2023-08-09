@@ -22,9 +22,13 @@ h1 {
   margin-bottom: 70px;
 }
 p {
-  font-size: 25px; 
+  font-size: 25px;
   font-weight: 400;
   line-height: 45px;
+}
+::selection {
+  background-color: #FFE74F;
+  color: black;
 }
 @media( max-width: 1180px ) {
   /*=====================================================
@@ -147,7 +151,7 @@ button:hover {
 .form-hero p {
   margin-bottom: 70px;
 }
-.mid-form-text {
+.form-text {
   margin-top: 70px;
   margin-bottom: 40px;
 }
@@ -206,7 +210,7 @@ select option,
 textarea,
 .form-control {
   background-color: black;
-  border: none;
+  border: 1px solid transparent;
   border-bottom: 1px solid white;
   color: white;
   font-size: 25px;
@@ -214,14 +218,16 @@ textarea,
   font-family: inherit;
   height: 51px;
   max-width: 100%;
+  transition: all .3s ease-in-out;
 }
 input:focus,  
 select:focus,
 textarea:focus,
 .form-control:focus {
+  padding: 0 16px;
   outline: 1px solid #FFE74F;
   outline-offset: 1px;
-  border: none;
+  border-color: transparent;
 }
 input::placeholder,  
 select::placeholder,
@@ -256,7 +262,8 @@ input[type="submit"]:hover {
   width: 415px;
 }
 .form-control.invalid {
-  border-color: red;
+  border: 1px solid transparent;
+  border-bottom: 1px solid red;
   color: pink;
 }
 .error-text {
@@ -292,7 +299,7 @@ input[type="submit"]:hover {
     line-height: 30px;
     height: 36px;
   }
-  .mid-form-text {
+  .form-text {
     margin-top: 50px;
     margin-bottom: 30px;
   }
@@ -331,7 +338,7 @@ input[type="submit"]:hover {
   .input-group {
     max-width: 100%;
   }
-  .mid-form-text {
+  .form-text {
     margin-top: 10px;
     margin-bottom: 30px;
   }

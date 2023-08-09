@@ -333,7 +333,7 @@ const WelcomeForm = (props) => {
           </div>
         </div>
         
-        <p className='mid-form-text'>
+        <p className='form-text'>
           Answering these questions is completely voluntary, but we highly encourage you to share your interests, hobbies, and experiences to foster meaningful connections and strengthen bonds.
         </p>
         <p className='field-description'>

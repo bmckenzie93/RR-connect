@@ -169,6 +169,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
             onBlur={handleEmailBlur}
             value={enteredEmail}
             className={emailInputClasses} 
+            placeholder='R&R Email'
           />
           {emailInputHasError && (
             <p className='error-text'>Please enter a valid R&R Partners email address</p>
