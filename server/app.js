@@ -123,7 +123,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
           body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 35px;
             background-color: black;
             color: white;
             min-height: 100vh;
@@ -140,17 +140,20 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
           img {
             display: block;
             width: 100%;
-            max-width: 175px;
+            max-width: 150px;
             margin: 0 auto;
           }
           h1 {
-            margin-top: 50px;
+            margin-top: 55px;
             font-size: 30px;
+            line-height: 40px;
+            font-weight: 800;
           }
           ol {
             margin: 0;
             padding: 0;
             max-width: 100%;
+            line-height: 21px;
           }
           li {
             margin: 0 0 6px 0;
@@ -168,11 +171,6 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       
             <tr>
               <td>
-
-              <h1>THIS IS ANOTHER TEST, THANK YOU AGAIN!</h1>
-
-
-
                 <h1>
                   <b>
                     Thank you for opting-in to<br>RRconnect.
@@ -182,7 +180,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
             </tr>
             
             <tr>
-              <td style="padding-bottom: 30px;">
+              <td style="padding-bottom: 25px;">
                 <b>Your connection:</b>
               </td>
             </tr>
@@ -190,7 +188,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
       
             <tr>
               <td>
-                <ol>
+                <ol style="margin:0;padding:0 0 0 20px;">
                   <li>Name: ${partnerUserObj.name}</li>
                   <li>Email: <a style="color: #FFE74F;" href="mailto:${partnerUserObj.email}">${partnerUserObj.email}</a></li>
                   <li>Job Title: ${partnerUserObj.job}</li>
@@ -382,5 +380,5 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
-rrConnect()
-// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
+// rrConnect()
+sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
