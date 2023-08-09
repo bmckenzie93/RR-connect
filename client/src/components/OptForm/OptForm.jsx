@@ -153,7 +153,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
           </>)}
         </div>
 
-        <div className='input-group'>
+        <div className='input-group full'>
           <label className='label' htmlFor="email">
             {optOut 
               ? 'Enter your email to opt-out'
@@ -174,7 +174,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
             <p className='error-text'>Please enter a valid R&R Partners email address</p>
           )}
         </div>
-        <div className="input-group">
+        <div className="input-group full">
           <input 
             type="submit" 
             value={optOut
