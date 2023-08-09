@@ -172,7 +172,7 @@ button:hover {
   position: relative;
   max-width: 47%;
 }
-.input-group.textarea {
+.input-group.full {
   max-width: 100%;
 }
 .label {
