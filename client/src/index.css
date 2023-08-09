@@ -170,6 +170,10 @@ button:hover {
   flex-direction: column;
   margin-bottom: 2rem;
   position: relative;
+  max-width: 50%;
+}
+.input-group.textarea {
+  max-width: 100%;
 }
 .label {
   font-size: 15px;
@@ -323,6 +327,9 @@ input[type="submit"]:hover {
   }
   .form-hero p {
     margin-bottom: 30px;
+  }
+  .input-group {
+    max-width: 100%;
   }
   .mid-form-text {
     margin-top: 10px;

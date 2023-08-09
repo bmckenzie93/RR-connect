@@ -340,7 +340,7 @@ const WelcomeForm = (props) => {
           What is something most people don't know about you? Each one of us has a unique story to tell, take this opportunity to share something surprising or intriguing about yourself that most people at R&R may not know. It could be a talent, an unusual experience, or a fascinating fact about your background.
         </p>
 
-        <div className='input-group'>
+        <div className='input-group textarea'>
           <label className='label' htmlFor="aboutYou">about you</label>
           <textarea
           id="aboutYou" 
@@ -360,7 +360,7 @@ const WelcomeForm = (props) => {
           What hobbies or passions do you have? Beyond your work at R&R, we want to know more about the things that make you tick outside the office. Whether it's painting, playing a musical instrument, hiking, cooking, or any other hobby or passion, feel free to share what you love to do when you're not at work.
         </p>
 
-        <div className='input-group'>
+        <div className='input-group textarea'>
           <label className='label' htmlFor="funFact">fun fact</label>
           <textarea
           id="funFact" 
