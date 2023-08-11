@@ -37,11 +37,12 @@ const LoginForm = ({onGrantPermission}) => {
 
   return (
     <form className='form' onSubmit={handleLogIn}>
-      <div className='input-group'>
-        <label className='label' htmlFor="password">Password*</label>
+      <div className='input-group full'>
+        <label className='label required' htmlFor="password">Password</label>
         <input
           type="password" 
           id="password" 
+          placeholder='Password'
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
           value={enteredPassword} 
@@ -51,7 +52,7 @@ const LoginForm = ({onGrantPermission}) => {
           <p className='error-text'>Please enter a valid password</p>
         )}
       </div>
-      <div className='input-group'>
+      <div className='input-group full'>
         <input type="submit" value="submit" id="submit" />
       </div>
     </form>

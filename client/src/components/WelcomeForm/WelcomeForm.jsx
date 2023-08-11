@@ -167,7 +167,8 @@ const WelcomeForm = (props) => {
             previousConnections: [enteredEmail.trim().toLowerCase()],
             createdAt: dateString,
             updatedAt: dateString,
-            optHistory: [`opt in: ${dateString}`]
+            optHistory: [`opt in: ${dateString}`],
+            emailsReceived: 0
           }),
           headers: {
             'Content-Type': 'application/json',
