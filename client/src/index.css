@@ -21,6 +21,7 @@ h1 {
   line-height: 45px;
   margin-bottom: 70px;
 }
+h2 { text-align: center; }
 p {
   font-size: 25px;
   font-weight: 400;
@@ -90,6 +91,11 @@ button:hover {
   border-color: #FFE74F;
   color: white;
 }
+table {
+  width: 100%;
+  margin: 32px 0;
+}
+td { padding: 6px; }
 @media( max-width: 1180px ) {
   /*=====================================================
   UI ELEMENTS: TABLET
