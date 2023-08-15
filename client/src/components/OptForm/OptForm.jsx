@@ -57,7 +57,17 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
   const handleOptUser = async (e) => {
     e.preventDefault()
     
-    if(!enteredEmailIsValid) return 
+    if(enteredEmail === '') {
+      alert('Please enter your R&R Partners email')
+      emailRef.current.focus()
+      return
+    }
+    if(!enteredEmailIsValid) {
+      alert('Must be a valid R&R Partners email')
+      handleEmailReset()
+      emailRef.current.focus()
+      return
+    }
     
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
     
@@ -161,7 +171,7 @@ const OptForm = ({ optOut, onShowWelcomeForm }) => {
             }
             
           </label>
-          <input 
+          <input
             type="email" 
             id="email"
             ref={emailRef}
