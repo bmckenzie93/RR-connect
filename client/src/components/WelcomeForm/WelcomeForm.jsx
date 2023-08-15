@@ -127,7 +127,10 @@ const WelcomeForm = (props) => {
       !enteredLocationIsValid ||
       !enteredPillarIsValid ||
       !enteredJobIsValid 
-    ) { return }
+    ) { 
+      alert('Please fill in all required fields') 
+      return
+    }
 
     const userExists = users.some(user => user.email === enteredEmail.trim().toLowerCase())
 

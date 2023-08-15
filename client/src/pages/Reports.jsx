@@ -110,7 +110,7 @@ const Reports = () => {
         </table>
 
         <div className="button-group">
-          <button className='btn' onClick={handleExportData}>Export Table</button>
+          <button onClick={handleExportData}>Export Table</button>
         </div>
       </>)}
     </Container>
