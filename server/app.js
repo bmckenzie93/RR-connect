@@ -3,9 +3,7 @@
   TODO:
 
   - deploy from rr github repo on netlify
-    (change environment variables in netlify after switching repo)
-
-  - use internal smtp 
+  - change environment variables in netlify after switching repo
 
 =====================================================*/
 
@@ -49,6 +47,50 @@ const fallbackUserForOddNumberOfUsers = {
 
 
 /*=====================================================
+  UPDATE EMAILS RECEIVED FUNCTION
+=====================================================*/
+const updateEmailsReceived = async (user) => {
+  try {
+    const response = await fetch(`${DB_URL}.json`)
+    const users = await response.json()
+
+    if (!response.ok) {
+      throw new Error('Sorry, something went wrong..')
+    }
+
+    let userKeyToUpdate
+    for(const key in users) {
+      if(users[key].email === user.email) {
+        userKeyToUpdate = key
+        break
+      }
+    }
+    if(userKeyToUpdate) {
+      const updateURL = `${DB_URL}/${userKeyToUpdate}.json`
+      const updateResponse = await fetch(
+        updateURL,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({
+            emailsReceived: users[userKeyToUpdate].emailsReceived+1
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+    if (!updateResponse.ok) {
+      throw new Error('Sorry, something went wrong..')
+    }
+  }
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+/*=====================================================
   UPDATE PREVIOUS CONNECTIONS FUNCTION
 =====================================================*/
 const updatePreviousConnections = async (user) => {
@@ -75,7 +117,7 @@ const updatePreviousConnections = async (user) => {
           method: 'PATCH',
           body: JSON.stringify({
             previousConnections: user.previousConnections,
-            updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' }),
+            updatedAt: Date.now().toLocaleString('en-US', { timeZone: 'UTC' })
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -217,14 +259,15 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 
   async function main() {
     const info = await transporter.sendMail({
-      from: `"RR Connect" <noreply@rrpartners.com>`,
+      from: `"RRConnect" <noreply@rrpartners.com>`,
       to: recipientUserObj.email,
-      subject: "TEST: RR Connect",
+      subject: "RRConnect",
       text: bodyText,
       html: bodyHtml, 
     });
   
     console.log("Message sent: %s", info.messageId);
+    updateEmailsReceived(recipientUserObj)
   }
   
   main().catch(console.error);
@@ -306,7 +349,7 @@ const rrConnect = async () => {
 
 
       // SEND EMAILS WITH FALLBACK
-      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
+      console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
@@ -320,7 +363,7 @@ const rrConnect = async () => {
     if (!partner && userQueue.length === 1) {
 
       // SEND EMAILS WITH FALLBACK
-      console.log(currentUser.name + ' IS ALONE, SO GETS ' + fallbackUserForOddNumberOfUsers.name)
+      console.log(currentUser.name + ' IS ALONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name)
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -360,7 +403,7 @@ const rrConnect = async () => {
       const currentUser = userQueue[0]
 
       // SEND EMAILS HERE
-      console.log(currentUser.name + ' HAS ALT LEFT OVER CASE, SO GETS ' + fallbackUserForOddNumberOfUsers.name) 
+      console.log(currentUser.name + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name) 
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -380,5 +423,5 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
-// rrConnect()
-sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
+cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
+// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
