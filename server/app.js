@@ -423,5 +423,6 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
-cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
+//cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
+cron.schedule('* * * * * *', console.log('ok'))
 // sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
