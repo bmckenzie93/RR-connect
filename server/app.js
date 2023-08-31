@@ -423,8 +423,8 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 // cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
-//cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
+cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
 //  cron.schedule('*/10 * * * * *', ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}))
- cron.schedule('*/10 * * * * *', ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}))
+//  cron.schedule('*/10 * * * * *', ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com', aboutYou: 'The boeing slider has been taking longer than we originally thought - I just got it to a point where Nicole can send it for review just now. I will test the rrConnect script right now, which shouldnt take too long.Im out tomorrow and were all out monday.The rr slider is not started at all yet, and Ive spent a few hours on the crash slider already.'},{email: 'brandon.mckenzie@rrpartners.com', aboutYou: 'The boeing slider has been taking longer than we originally thought - I just got it to a point where Nicole can send it for review just now. I will test the rrConnect script right now, which shouldnt take too long.Im out tomorrow and were all out monday.The rr slider is not started at all yet, and Ive spent a few hours on the crash slider already.'}))
 // sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
 // sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
