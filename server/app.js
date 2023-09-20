@@ -4,6 +4,7 @@
 
   - deploy from rr github repo on netlify
   - change environment variables in netlify after switching repo
+  - when pushing edits to the server, place the .env in there as well
 
 =====================================================*/
 
@@ -215,7 +216,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
               <td>
                 <h1>
                   <b>
-                    Thank you for opting-in to<br>RRconnect.
+                    Thank you for opting-in to<br><b>RRconnect</b>.
                   </b>
                   </h1>
               </td>
@@ -223,7 +224,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
             
             <tr>
               <td style="padding-bottom: 25px;">
-                <b>Your connection:</b>
+                <b>Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. Please use job #127626/001 (Culture Keepers Agency-Wide Events) for your meeting time.</b>
               </td>
             </tr>
             <tr>&nbsp;</tr>
@@ -259,7 +260,8 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
 
   async function main() {
     const info = await transporter.sendMail({
-      from: `"RRConnect" <noreply@rrpartners.com>`,
+      from: `"RRConnect" <RRConnect@rrpartners.com>`,
+      replyTo: '<RRConnect@rrpartners.com>',
       to: recipientUserObj.email,
       subject: "RRConnect",
       text: bodyText,
@@ -422,9 +424,5 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-// cron.schedule('0 0 1,15 * *', ()=> rrConnect()) // Run every month on 1st and 15th.
-cron.schedule('0 0 6,20 * *', ()=> rrConnect()) // Run every month on 6st and 20th.
-//  cron.schedule('*/10 * * * * *', ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}))
-//  cron.schedule('*/10 * * * * *', ()=> sendEmail({email: 'brandon.mckenzie@rrpartners.com', aboutYou: 'The boeing slider has been taking longer than we originally thought - I just got it to a point where Nicole can send it for review just now. I will test the rrConnect script right now, which shouldnt take too long.Im out tomorrow and were all out monday.The rr slider is not started at all yet, and Ive spent a few hours on the crash slider already.'},{email: 'brandon.mckenzie@rrpartners.com', aboutYou: 'The boeing slider has been taking longer than we originally thought - I just got it to a point where Nicole can send it for review just now. I will test the rrConnect script right now, which shouldnt take too long.Im out tomorrow and were all out monday.The rr slider is not started at all yet, and Ive spent a few hours on the crash slider already.'}))
-// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
-// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'})
+cron.schedule('0 0 4,18 * *', ()=> rrConnect()) // Run every month on 4th and 18th.
+// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}) // send test email to myself
