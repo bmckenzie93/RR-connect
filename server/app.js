@@ -6,9 +6,6 @@
   - change environment variables in netlify after switching repo
   - when pushing edits to the server, place the .env in there as well
 
-  -put in a rate limit
-  -print a text log with 
-
 =====================================================*/
 
 
@@ -21,6 +18,7 @@ const dotenv = require('dotenv').config()
 const nodemailer = require('nodemailer')
 const cron = require('node-cron')
 const fetch = require('node-fetch')
+const fs = require('fs')
 const port = process.env.PORT || 5001
 
 const app = express()
@@ -47,6 +45,7 @@ const fallbackUserForOddNumberOfUsers = {
   createdAt: '',
   updatedAt: ''
 }
+let logMessage = ``
 
 
 
@@ -272,6 +271,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     });
   
     console.log("Message sent: %s", info.messageId);
+    logMessage += `Message sent: %s, ${info.messageId}\n`
     updateEmailsReceived(recipientUserObj)
   }
   
@@ -295,6 +295,11 @@ const rrConnect = async () => {
   console.log('=======================START===========================')
   console.log('=======================START===========================')
   console.log('=======================START===========================')
+
+  logMessage += `=======================START ${new Date()}===========================\n`
+  logMessage += `=======================START ${new Date()}===========================\n`
+  logMessage += `=======================START ${new Date()}===========================\n`
+
 
 
   /*=====================================================
@@ -364,6 +369,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
+      logMessage += `${currentUser.name} + ' HAS BEEN WITH EVERYONE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name} + ' and their previous connections reset to zero..\n`
+
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
       
@@ -378,6 +385,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name)
+      logMessage += `${currentUser.name} + ' IS ALONE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name}\n`
+
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -391,6 +400,8 @@ const rrConnect = async () => {
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
     console.log(currentUser.name + ' and ' + partner.name)
+    logMessage += `${currentUser.name} + ' and ' + ${partner.name}\n`
+
     sendEmail(currentUser, partner)
     sendEmail(partner, currentUser)
 
@@ -418,6 +429,8 @@ const rrConnect = async () => {
 
       // SEND EMAILS HERE
       console.log(currentUser.name + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name) 
+      logMessage += `${currentUser.name} + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name}\n`
+
       sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
       sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
 
@@ -433,6 +446,18 @@ const rrConnect = async () => {
   console.log('=======================END=============================')
   console.log('=======================END=============================')
   console.log('=======================END=============================')
+
+  logMessage += `=======================END ${new Date()}=============================\n`
+  logMessage += `=======================END ${new Date()}=============================\n`
+  logMessage += `=======================END ${new Date()}=============================\n`
+
+  fs.appendFile('history-log.txt', logMessage, (err) => {
+    if (err) {
+      console.error('Error writing to log file:', err);
+    } else {
+      console.log('RRConnect logged.');
+    }
+  });
 } 
 
 
