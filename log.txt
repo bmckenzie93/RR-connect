@@ -1,0 +1,205 @@
+=======================START===========================
+=======================START===========================
+=======================START===========================
+Server started on port 5001
+Alex Samion and Emmarose Terry
+Lisa Horan and Nicole Williams
+Justin Gilbert and Jenna Palazzo
+Fletcher Whitwell and Kim Johnson
+Chris Macqueen and Nikki Gordon
+Renee Page and Morgan Baumgartner
+Amanda Rice and Jeremy Fishman
+Dorcus Eason and Ryan Izant
+Michelle Mader and Amberlee Engle
+Calvin Crawford and Jennifer Harlan
+Chris Bell and Jacqueline Meason
+Ryan McGinness and Kaden Symes
+Marcella Flippin and Brandon McKenzie
+Brian Hoar and Kristin Kulas
+Maria Maco and Gina Nelson
+Christina Lau Billings and Lydia Balle
+Alison Morales and Matt Mason
+Mia and Danielle schneider
+Ashlyn and Natalie Hernandez
+Amanda Stuy and Billy Vassiliadis
+Kari Jaspersohn and Patrick
+Hanna Koivunen and Jennifer Hughes
+Angela and Sophie haws
+Kendall Jennings and Kaylee Kress
+Jilliann Parraguirre and Bella Scutti
+Phil Chiu and Christine Fitzpatrick
+=======================END=============================
+=======================END=============================
+=======================END=============================
+Message sent: <b83d4180-e6d5-6c2a-490b-4cce9b3e492b@rrpartners.com>
+Message sent: <b97f4e24-b890-5482-a4bb-5378f4384a0c@rrpartners.com>
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Error: Invalid login: 451 4.7.0 Temporary server error. Please try again later. PRX4 
+    at SMTPConnection._formatError (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:790:19)
+    at SMTPConnection._actionAUTHComplete (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1564:34)
+    at SMTPConnection.<anonymous> (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:1518:18)
+    at SMTPConnection._processResponse (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:969:20)
+    at SMTPConnection._onData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:755:14)
+    at TLSSocket.SMTPConnection._onSocketData (/Users/brandonm/Desktop/rr-connect-app/server/node_modules/nodemailer/lib/smtp-connection/index.js:193:44)
+    at TLSSocket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at TLSSocket.Readable.push (node:internal/streams/readable:228:10) {
+  code: 'EAUTH',
+  response: '451 4.7.0 Temporary server error. Please try again later. PRX4 ',
+  responseCode: 451,
+  command: 'AUTH LOGIN'
+}
+Message sent: <2deaea40-4108-86a6-3c9e-83f2c6a3f081@rrpartners.com>
+Message sent: <72e19929-ff59-c279-45fb-82f63ab232f9@rrpartners.com>
+Message sent: <40b27046-1407-fc6e-bcbe-b8db8e5fb879@rrpartners.com>
+Message sent: <d5333547-0f41-e107-ef03-14ce28ff3c85@rrpartners.com>
+Message sent: <b741cd25-9245-0e82-9c4d-cd746fc06870@rrpartners.com>
+Message sent: <6d5e2307-9188-5fb4-fcdf-df687d8bf44b@rrpartners.com>
+Message sent: <69de544a-e230-e96d-8c9f-214199f5351a@rrpartners.com>
+Message sent: <0f155383-3ccc-475d-20fd-e5cca03a5eb5@rrpartners.com>
+Message sent: <601f04da-b53b-2ca3-a7ea-33c375062aca@rrpartners.com>
+Message sent: <2a9d9c2a-795b-de12-e663-764171952655@rrpartners.com>
+Message sent: <08344d0f-6c00-afae-128d-d364afdcc3ec@rrpartners.com>
+Message sent: <04aa2d1c-37a9-9553-9202-7a59b66eba6f@rrpartners.com>
+Message sent: <6236ba60-083b-c531-07b2-385afd02af64@rrpartners.com>
+Message sent: <91281bd4-6849-9e48-74cf-f19a39fde449@rrpartners.com>
+Message sent: <ad041aef-cc0b-63f3-ad64-cae722e81aa7@rrpartners.com>
+Message sent: <967856ae-9862-8a5e-c828-10848b195e68@rrpartners.com>
+Message sent: <cd89944e-e2a2-077d-a675-d5a637a9bf33@rrpartners.com>
+Message sent: <9c58e749-c591-e4e6-b526-d53cdd429ddb@rrpartners.com>
+Message sent: <a5e3ad12-d843-9089-72b0-bd268ea1568b@rrpartners.com>
+Message sent: <7b273ba4-63bc-19b4-907d-f03a3592a425@rrpartners.com>
+Message sent: <a26b5dae-d2ff-3e63-1056-f8949737715c@rrpartners.com>
+Message sent: <c35e93a0-350f-3f9e-44a0-2a45b60d2b8a@rrpartners.com>
+Message sent: <2e97ccf7-ac59-28da-42d7-91ce38b3dc76@rrpartners.com>
+Message sent: <c60daf2b-9e9d-a16f-4cfc-95c18fe0a404@rrpartners.com>
+Message sent: <a7b1f2c7-0869-7c23-d421-3e7747efcb2e@rrpartners.com>
+Message sent: <44c7e3c4-1ede-74c3-a53b-6c34216b1eed@rrpartners.com>
+Message sent: <1fa22c7a-2617-a1d7-6eba-abbae15558a1@rrpartners.com>
+Message sent: <9d02ba12-0671-7e85-5003-54745eafefd3@rrpartners.com>
+Message sent: <49f4cd1f-e6c9-c204-a7c1-aadb05981252@rrpartners.com>
+Message sent: <4c07aa8a-6956-c3cd-0bba-7ac14b7ebdfa@rrpartners.com>
+Message sent: <79203222-13c3-557b-8a5f-d80c3f7de638@rrpartners.com>
+Message sent: <f7d9cb5e-d456-5f7a-b024-f1bf428c3d4d@rrpartners.com>
+Message sent: <4d6a52e8-856e-8335-729e-272be22a6436@rrpartners.com>
+Message sent: <53978789-434d-7d02-9ceb-482376a05115@rrpartners.com>
+Message sent: <f89fa741-e9c2-4640-6984-be92310653bc@rrpartners.com>
+Message sent: <26e499cd-c437-4ba3-070e-194647f13aa1@rrpartners.com>
+Message sent: <103d46d1-f16c-6465-cd1e-928798d0501a@rrpartners.com>
+Message sent: <57292087-939a-e089-268a-c039310e96cd@rrpartners.com>
+Message sent: <be2254d8-ff81-f76d-a7e6-6e3aeed604a3@rrpartners.com>
+Message sent: <85b24237-6bf3-f413-7783-2d2a91246cb4@rrpartners.com>
+Message sent: <c273d2a5-aa9c-a0e3-5fe7-1bec1b96f7df@rrpartners.com>
+Message sent: <4d3243b7-c5f4-8140-30cc-ec2c3d1ee903@rrpartners.com>

@@ -6,6 +6,9 @@
   - change environment variables in netlify after switching repo
   - when pushing edits to the server, place the .env in there as well
 
+  -put in a rate limit
+  -print a text log with 
+
 =====================================================*/
 
 
@@ -224,7 +227,7 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
             
             <tr>
               <td style="padding-bottom: 25px;">
-                <b>Below is the person you have been randomly assigned to connect with over the next two weeks. We suggest you reach out and schedule a Teams meeting or call to get to know one another. Please use job #127626/001 (Culture Keepers Agency-Wide Events) for your meeting time.</b>
+                <b>Below is the person you have been randomly assigned to connect with this month. We suggest you reach out and schedule a Teams meeting or call to get to know one another. Please use job #127626/001 (Culture Keepers Agency-Wide Events) for your meeting time.</b>
               </td>
             </tr>
             <tr>&nbsp;</tr>
@@ -275,6 +278,15 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
   main().catch(console.error);
 }
 
+/*=====================================================
+  SLEEP FUNCTION
+=====================================================*/
+const sleep = (ms) => {
+  const startTime = Date.now();
+  while (Date.now() - startTime < ms) {
+    
+  }
+}
 
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
@@ -411,7 +423,11 @@ const rrConnect = async () => {
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
-    }            
+    }
+    
+    console.log('start pause...')
+    sleep(2000);
+    console.log('end pause...')
   }
 
   console.log('=======================END=============================')
@@ -424,5 +440,5 @@ const rrConnect = async () => {
 /*=====================================================
   SCHEDULE CRON JOB
 =====================================================*/
-cron.schedule('0 0 4,18 * *', ()=> rrConnect()) // Run every month on 4th and 18th.
+cron.schedule('0 0 1 * *', ()=> rrConnect()) // Run every month on the 1st.
 // sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}) // send test email to myself
