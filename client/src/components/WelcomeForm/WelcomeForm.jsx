@@ -236,7 +236,7 @@ const WelcomeForm = (props) => {
             Thank you for opting-in to RRconnect.
           </h1>
           <p>
-            Twice a month you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat. Everyone who opts-in will receive $15 of Recognize points once the revamped Recognize Rewards store is open.  
+            At the beginning of each month, you will receive an email that randomly assigns you to another R&R employee. You can meet via teams and chat. Everyone who opts-in will receive $15 of bonus points to spend at our new R&R store, coming soon!
           </p>
         </div>
 
