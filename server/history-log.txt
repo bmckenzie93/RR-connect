@@ -1,29 +1,86 @@
-=======================START Mon Sep 25 2023 16:12:56 GMT-0700 (Pacific Daylight Time)===========================
-Natalie Hernandez + ' and ' + Chris Macqueen
-Ashlyn + ' and ' + Amberlee Engle
-Mia + ' and ' + Christina Lau Billings
-Michelle Mader + ' and ' + Nicole Williams
-Alison Morales + ' and ' + Gina Nelson
-Renee Page + ' and ' + Jacqueline Meason
-Hanna Koivunen + ' and ' + Kristin Kulas
-Chris Bell + ' and ' + Kaden Symes
-Jennifer Harlan + ' and ' + Kaylee Kress
-Lydia Balle + ' and ' + Patrick
-Maria Maco + ' and ' + Brandon McKenzie
-Danielle schneider + ' and ' + Angela
-Amanda Rice + ' and ' + Lisa Horan
-Christine Fitzpatrick + ' and ' + Nikki Gordon
-Jeremy Fishman + ' and ' + Bella Scutti
-Dorcus Eason + ' and ' + Marcella Flippin
-Amy Cascella + ' and ' + Calvin Crawford
-Billy Vassiliadis + ' and ' + Justin Gilbert
-Jennifer Hughes + ' and ' + Emmarose Terry
-Alex Samion + ' and ' + Jilliann Parraguirre
-Amanda Stuy + ' and ' + Fletcher Whitwell
-Matt Mason + ' and ' + Ryan McGinness
-Kari Jaspersohn + ' and ' + Kim Johnson
-Morgan Baumgartner + ' and ' + Brian Hoar
-Phil Chiu + ' and ' + Kendall Jennings
-Ryan Izant + ' and ' + Sophie haws
-Jenna Palazzo + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + Chris Bell
-=======================END Mon Sep 25 2023 16:13:47 GMT-0700 (Pacific Daylight Time)=============================
+=======================START Tue Dec 05 2023 13:37:04 GMT-0800 (Pacific Standard Time)===========================
+Chris Bell and Nicole Williams
+Message sent: %s, <5e8b01e4-5ed2-bc99-7f39-16a72fab4cd3@rrpartners.com>
+Message sent: %s, <1c7b0753-4daf-3497-ffc3-a9083711a07e@rrpartners.com>
+Angela and Jennifer Harlan
+Message sent: %s, <e1b85f18-597b-4f3b-4c24-04fc1b659d7d@rrpartners.com>
+Message sent: %s, <f7c73c3e-28cd-eb78-e1aa-c74ddb246c6f@rrpartners.com>
+Brandon McKenzie and Nikki Gordon
+Message sent: %s, <9965985f-d671-7c13-0ea0-1fef7cd77b0e@rrpartners.com>
+Message sent: %s, <954f62d8-939c-cb24-e358-b396001835e8@rrpartners.com>
+Alison Morales and Jilliann Parraguirre
+Message sent: %s, <eb3e4db1-03a3-edff-56d8-f0911cc4fcca@rrpartners.com>
+Message sent: %s, <d27a2e93-bd0d-e452-557c-a5d85d56dc68@rrpartners.com>
+Matt Mason and Emmarose Terry
+Message sent: %s, <003439af-58d7-6536-da43-38027bcf1af9@rrpartners.com>
+Message sent: %s, <b687a870-c121-9ec8-4dea-8fbb1d6c0366@rrpartners.com>
+Ryan Izant and Kaden Symes
+Message sent: %s, <6468104c-d26f-8b31-f281-b5afe5d54ea4@rrpartners.com>
+Message sent: %s, <e4403b49-88aa-d97e-2c92-5a68c6685796@rrpartners.com>
+Jennifer Hughes and Michelle Mader
+Message sent: %s, <f75d853f-3859-cc18-06d5-af3a3c3da42a@rrpartners.com>
+Message sent: %s, <15833c7c-565e-c7d8-52ab-311d04771086@rrpartners.com>
+Bella Scutti and Lisa Horan
+Message sent: %s, <d40bfa8d-35d3-8fb1-dde0-8d889fdcfce9@rrpartners.com>
+Message sent: %s, <f0914e4d-d0db-8be5-9129-558c5195c457@rrpartners.com>
+Calvin Crawford and Amanda Rice
+Message sent: %s, <e2fe1a24-2e7e-cb94-c4fb-89c0a7f6b4b8@rrpartners.com>
+Message sent: %s, <5e00d66b-8ea4-87cc-4f22-2168a98f5384@rrpartners.com>
+Christine Fitzpatrick and Bruce Wilcox
+Message sent: %s, <1f8c434e-1fc1-97f6-a896-045ab31a3a25@rrpartners.com>
+Message sent: %s, <c503c7fc-ba90-3f72-bb43-5cb91e802a8c@rrpartners.com>
+Jeremy Fishman and Jenna Palazzo
+Message sent: %s, <7238054a-0bd4-e13e-9d26-830b0e67a9c2@rrpartners.com>
+Message sent: %s, <0f505124-30b0-d849-9945-80fdec7e7263@rrpartners.com>
+Natalie Hernandez and Renee Page
+Message sent: %s, <50d67cd2-2126-ca21-61b6-6af71034a28d@rrpartners.com>
+Message sent: %s, <3f3ee07e-a4e8-62c5-c84b-1d16a0c877db@rrpartners.com>
+Danielle schneider and Chris Macqueen
+Message sent: %s, <b3ddb37f-60fe-ddb6-2fba-bf2b445819d0@rrpartners.com>
+Message sent: %s, <915d821d-fb3f-a1ba-a651-b2f53004bc63@rrpartners.com>
+Alex Samion and Marcella Flippin
+Message sent: %s, <5ae5ca80-f3a1-b5ac-05b0-bb6ee44f7029@rrpartners.com>
+Message sent: %s, <ffe3eb2f-3c46-8fa0-26de-ad0a7a16d054@rrpartners.com>
+Kim Johnson and Ryan McGinness
+Message sent: %s, <77741368-6c4b-b7ae-5a6b-204bd73cc7ae@rrpartners.com>
+Message sent: %s, <42cb76a0-946a-5263-1057-2acfb1fdf124@rrpartners.com>
+Fletcher Whitwell and Billy Vassiliadis
+Message sent: %s, <080fbc1c-2b3a-2817-e073-0a2565dc33e2@rrpartners.com>
+Message sent: %s, <fcd372f4-bf44-130c-635a-305952a92921@rrpartners.com>
+Brian Hoar and Hanna Koivunen
+Message sent: %s, <643e664e-daee-9e5d-5b39-c39493edcabc@rrpartners.com>
+Message sent: %s, <ba87b66e-45a6-4fac-7015-f1ff0b449235@rrpartners.com>
+Dorcus Eason and Gina Nelson
+Message sent: %s, <4e29f05e-3db4-1c04-272d-a178a69dc158@rrpartners.com>
+Message sent: %s, <c06b9f5b-a679-7d79-1b92-3d258c4329e7@rrpartners.com>
+Phil Chiu and Mia
+Message sent: %s, <d1a2d4cf-6e19-1811-9f03-aaa43226472d@rrpartners.com>
+Message sent: %s, <0e45fac8-d2d1-a95e-4c89-0f6ba0ed9b4a@rrpartners.com>
+Kaylee Kress and Kari Jaspersohn
+Message sent: %s, <423880cb-1398-0013-0556-1b9b09d30666@rrpartners.com>
+Message sent: %s, <c0504219-2154-e3fa-aadf-d2d887ebb3cd@rrpartners.com>
+Patrick and Morgan Baumgartner
+Message sent: %s, <b2bc1687-3fce-a883-9014-387189d7d16e@rrpartners.com>
+Message sent: %s, <559705de-e7a7-8386-7f5f-4da5be02e6b4@rrpartners.com>
+Amberlee Engle and Amanda Stuy
+Message sent: %s, <1ea77d1f-a053-06b9-5ffc-6cbfa4070e8a@rrpartners.com>
+Message sent: %s, <5fb538f8-16e6-fdbd-3a99-9cd3204f4552@rrpartners.com>
+Sophie haws and Ashlyn
+Message sent: %s, <55c1da4c-c106-1e53-c02f-246fd7c0a3a5@rrpartners.com>
+Message sent: %s, <630e0ced-0f6f-b8cc-dbd1-113a58bd4f50@rrpartners.com>
+Christina Lau Billings and Jacqueline Meason
+Message sent: %s, <9bccf48d-66a4-aace-56c9-7ebaec164604@rrpartners.com>
+Message sent: %s, <97e98606-6c14-13ea-de07-d90087a47729@rrpartners.com>
+Kendall Jennings and Mallory Miranda
+Message sent: %s, <b50f654b-2b12-623a-bdb3-3a92e8c5c2eb@rrpartners.com>
+Message sent: %s, <2fcfdc6f-2227-5fb5-bdd8-f2c657497663@rrpartners.com>
+Justin Gilbert and Kristin Kulas
+Message sent: %s, <65d62758-8280-7c78-f750-169a06c07c30@rrpartners.com>
+Message sent: %s, <b2e88e9d-dd64-3ffa-3f70-230e22c7d2fc@rrpartners.com>
+Maria Maco and Amy Cascella
+Message sent: %s, <33130638-29c7-fef6-fed2-1a0a8c2489be@rrpartners.com>
+Message sent: %s, <ff76fb82-991b-253e-5713-601ce115a38b@rrpartners.com>
+=======================END Tue Dec 05 2023 13:39:44 GMT-0800 (Pacific Standard Time)=============================
+
+
+

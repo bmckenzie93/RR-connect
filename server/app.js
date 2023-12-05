@@ -31,7 +31,6 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
   GLOBAL VARIABLES
 =====================================================*/
 const DB_URL = process.env.DB_URL
-const dummyUsers = require('./DUMMY_USERS/dummyUsers')
 const fallbackUserForOddNumberOfUsers = {
   name: 'Chris Bell',
   email: 'chris.bell@rrpartners.com',
@@ -45,6 +44,7 @@ const fallbackUserForOddNumberOfUsers = {
   createdAt: '',
   updatedAt: ''
 }
+
 let logMessage = ``
 
 
@@ -68,6 +68,7 @@ const updateEmailsReceived = async (user) => {
         break
       }
     }
+
     if(userKeyToUpdate) {
       const updateURL = `${DB_URL}/${userKeyToUpdate}.json`
       const updateResponse = await fetch(
@@ -139,12 +140,20 @@ const updatePreviousConnections = async (user) => {
 }
 
 
+/*=====================================================
+  DELAY FUNCTION
+=====================================================*/
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 
 /*=====================================================
   SEND EMAIL FUNCTION
 =====================================================*/
-const sendEmail = (recipientUserObj, partnerUserObj) => {
-  const bodyText = `Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}`
+const sendEmail = async (recipientUserObj, partnerUserObj) => {
+  const bodyText = `
+    Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}
+  `
+
   const bodyHtml = `
     <!DOCTYPE html>
       <html lang="en">
@@ -256,37 +265,34 @@ const sendEmail = (recipientUserObj, partnerUserObj) => {
     auth: {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD
-    }
+    },
+    // logger: true,
+    // debug: true,
   });  
-  
 
-  async function main() {
+
+  try {
     const info = await transporter.sendMail({
       from: `"RRConnect" <RRConnect@rrpartners.com>`,
       replyTo: '<RRConnect@rrpartners.com>',
       to: recipientUserObj.email,
       subject: "RRConnect",
       text: bodyText,
-      html: bodyHtml, 
+      html: bodyHtml,
     });
-  
+
     console.log("Message sent: %s", info.messageId);
-    logMessage += `Message sent: %s, ${info.messageId}\n`
+    logMessage += `Message sent: %s, ${info.messageId}\n`;
     updateEmailsReceived(recipientUserObj)
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+  } finally {
+    // Close the transporter after sending each email
+    transporter.close();
   }
-  
-  main().catch(console.error);
 }
 
-/*=====================================================
-  SLEEP FUNCTION
-=====================================================*/
-const sleep = (ms) => {
-  const startTime = Date.now();
-  while (Date.now() - startTime < ms) {
-    
-  }
-}
 
 /*===================================================== 
 !!!!!!!!!!!!!!!!!! RR CONNECT APP !!!!!!!!!!!!!!!!!!
@@ -296,8 +302,6 @@ const rrConnect = async () => {
   console.log('=======================START===========================')
   console.log('=======================START===========================')
 
-  logMessage += `=======================START ${new Date()}===========================\n`
-  logMessage += `=======================START ${new Date()}===========================\n`
   logMessage += `=======================START ${new Date()}===========================\n`
 
 
@@ -324,6 +328,7 @@ const rrConnect = async () => {
   }
 
   await fetchActiveUsers() 
+
   // dummyUsers.forEach(user => {
   //   if(user.optIn) {
   //     activeUsers.push(user)
@@ -339,13 +344,12 @@ const rrConnect = async () => {
   let randomNum;
   let randomIndexValue;
 
-  while(--i > 0){ // count down from end of arry
-    randomNum = Math.floor(Math.random() * (i + 1)) // random num between 0 and i
-    randomIndexValue = shuffledUsers[randomNum] // hold the chosen value for a moment
-    shuffledUsers[randomNum] = shuffledUsers[i] // give chosen value to i
-    shuffledUsers[i] = randomIndexValue // give i's original value to chosen index
+  while(--i > 0){                                    // count down from end of arry
+    randomNum = Math.floor(Math.random() * (i + 1))  // random num between 0 and i
+    randomIndexValue = shuffledUsers[randomNum]      // hold the chosen value for a moment
+    shuffledUsers[randomNum] = shuffledUsers[i]      // give chosen value to i
+    shuffledUsers[i] = randomIndexValue              // give i's original value to chosen index
   }
-
 
 
   /*=====================================================
@@ -369,11 +373,14 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' HAS BEEN WITH EVERYONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name + ' and their previous connections reset to zero..')
-      logMessage += `${currentUser.name} + ' HAS BEEN WITH EVERYONE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name} + ' and their previous connections reset to zero..\n`
+      logMessage += `${currentUser.name} HAS BEEN WITH EVERYONE, SO GETS FALLBACK ${fallbackUserForOddNumberOfUsers.name} and their previous connections reset to zero..\n`
 
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
-      
+      await sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      await delay(2000)
+
+      await sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      await delay(2000)
+
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
     }
@@ -385,10 +392,13 @@ const rrConnect = async () => {
 
       // SEND EMAILS WITH FALLBACK
       console.log(currentUser.name + ' IS ALONE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name)
-      logMessage += `${currentUser.name} + ' IS ALONE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name}\n`
+      logMessage += `${currentUser.name} IS ALONE, SO GETS FALLBACK ${fallbackUserForOddNumberOfUsers.name}\n`
 
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      await sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      await delay(2000)
+
+      await sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      await delay (2000)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1);   
       continue
@@ -400,10 +410,13 @@ const rrConnect = async () => {
       PAIR SUCCESSFULL, SEND EMAILS
     =====================================================*/
     console.log(currentUser.name + ' and ' + partner.name)
-    logMessage += `${currentUser.name} + ' and ' + ${partner.name}\n`
+    logMessage += `${currentUser.name} and ${partner.name}\n`
 
-    sendEmail(currentUser, partner)
-    sendEmail(partner, currentUser)
+    await sendEmail(currentUser, partner)
+    await delay(2000)
+
+    await sendEmail(partner, currentUser)
+    await delay(2000)
 
 
     /*===================================================== 
@@ -429,27 +442,25 @@ const rrConnect = async () => {
 
       // SEND EMAILS HERE
       console.log(currentUser.name + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + fallbackUserForOddNumberOfUsers.name) 
-      logMessage += `${currentUser.name} + ' HAS ALT LEFT OVER CASE, SO GETS FALLBACK ' + ${fallbackUserForOddNumberOfUsers.name}\n`
+      logMessage += `${currentUser.name} HAS ALT LEFT OVER CASE, SO GETS FALLBACK ${fallbackUserForOddNumberOfUsers.name}\n`
 
-      sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
-      sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      await sendEmail(currentUser, fallbackUserForOddNumberOfUsers)
+      await delay(2000)
+
+      await sendEmail(fallbackUserForOddNumberOfUsers, currentUser)
+      await delay(2000)
 
       userQueue.splice(userQueue.indexOf(currentUser), 1); 
       continue
     }
-    
-    console.log('start pause...')
-    sleep(2000);
-    console.log('end pause...')
   }
 
   console.log('=======================END=============================')
   console.log('=======================END=============================')
   console.log('=======================END=============================')
 
-  logMessage += `=======================END ${new Date()}=============================\n`
-  logMessage += `=======================END ${new Date()}=============================\n`
-  logMessage += `=======================END ${new Date()}=============================\n`
+  logMessage += `=======================END ${new Date()}=============================\n\n\n\n`
+
 
   fs.appendFile('history-log.txt', logMessage, (err) => {
     if (err) {
@@ -466,4 +477,3 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 cron.schedule('0 0 1 * *', ()=> rrConnect()) // Run every month on the 1st.
-// sendEmail({email: 'brandon.mckenzie@rrpartners.com'},{email: 'brandon.mckenzie@rrpartners.com'}) // send test email to myself
