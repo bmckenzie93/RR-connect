@@ -305,9 +305,9 @@ const WelcomeForm = (props) => {
             >
               <option disabled hidden value="none">Select Pillar</option>
               <option value="atlas">Atlas</option>
-              <option value="wanderlust">Travel, Tourism & Hospitality</option>
-              <option value="technovation">Technovation</option>
-              <option value="purpose">Purpose</option>
+              <option value="wanderlust">Wanderlust</option>
+              <option value="technovation">Evolve</option>
+              <option value="purpose">Cause & Effect</option>
             </select>
             {pillarInputHasError && (
               <p className='error-text'>Please select a pillar</p>
