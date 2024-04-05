@@ -1,6 +1,5 @@
 # RR-connect
 
-
 Vite React JS Front End:
 New users can opt into RR connect using a 'welcome form'.
 Existing users can opt-out and opt-in using another 'opt form'.
@@ -16,6 +15,7 @@ Both users are sent an introduction email using 'node-mailer'.
 App runs repeatedly on a set schedule using 'node-cron'.
 A user will not be paired with the same partner twice, unless they have previously been paired with everybody.
 A volunteer 'fallback user' will be paired with any odd person left out.
+
 
 
 R&R Internal Ubuntu Server: 'Ubuntu51' 

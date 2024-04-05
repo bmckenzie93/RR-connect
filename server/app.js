@@ -150,6 +150,15 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   SEND EMAIL FUNCTION
 =====================================================*/
 const sendEmail = async (recipientUserObj, partnerUserObj) => {
+  if(partnerUserObj.pillar == 'technovation') {
+    partnerUserObj.pillar = 'evolve'
+  }
+  
+  if(partnerUserObj.pillar == 'purpose') {
+    partnerUserObj.pillar = 'cause & effect'
+  }
+
+
   const bodyText = `
     Thank you for opting-in to RRconnect. Your Connection: Name: ${partnerUserObj.name} Email: ${partnerUserObj.email} Location: ${partnerUserObj.location} Pillar: ${partnerUserObj.pillar} Job Title: ${partnerUserObj.job} About Them: ${partnerUserObj.aboutYou} Fun fact: ${partnerUserObj.funFact}
   `
@@ -287,6 +296,7 @@ const sendEmail = async (recipientUserObj, partnerUserObj) => {
 
   } catch (error) {
     console.error('Error sending email:', error);
+    logMessage += `Error sending email: ${error}\n`;
   } finally {
     // Close the transporter after sending each email
     transporter.close();
@@ -426,8 +436,8 @@ const rrConnect = async () => {
     partner.previousConnections.push(currentUser.email);
 
     // update them both in the db here
-    updatePreviousConnections(currentUser)
-    updatePreviousConnections(partner)
+    updatePreviousConnections(currentUser);
+    updatePreviousConnections(partner);
 
 
     // Remove both users from the array
@@ -477,3 +487,4 @@ const rrConnect = async () => {
   SCHEDULE CRON JOB
 =====================================================*/
 cron.schedule('0 0 1 * *', ()=> rrConnect()) // Run every month on the 1st.
+// rrConnect()
